@@ -24,17 +24,22 @@ jobs:
         run: |
           pnpm install
 
-      - name: Build
-        run: |
-          pnpm run build
+      - name: Build and deploy
+        strategy:
+          matrix:
+            target: ['pages', 'storybook']
+        steps:
+          - name: Build ${{ matrix.target }}
+            run: |
+              pnpm run ${{ matrix.target }}:build
 
-      - name: Deploy preview
-        id: deploy-preview
-        uses: cloudflare/wrangler-action@v3
-        with:
-          apiToken: ${{ secrets.CF_API_KEY }}
-          accountId: ${{ secrets.CF_ACCOUNT_ID }}
-          command: version upload --message "Deployed by GitHub Actions branch ${{ github.ref }}"
+          - name: Deploy ${{ matrix.target }} preview
+            id: deploy-${{ matrix.target }}-preview
+            uses: cloudflare/wrangler-action@v3
+            with:
+              apiToken: ${{ secrets.CF_API_KEY }}
+              accountId: ${{ secrets.CF_ACCOUNT_ID }}
+              command: versions upload --message "Deployed by GitHub Actions branch ${{ github.ref }} ${{ matrix.target }}"
 
       - name: Create comment file
         run: |
@@ -43,13 +48,14 @@ jobs:
           <table>
             <tr>
               <td>Preview URL</td>
-              <td>https://preview.${{ github.repository }}.com</td>
+              <td>${{ steps.deploy-pages-preview.outputs.url }}</td>
+              <td>${{ steps.deploy-storybook-preview.outputs.url }}</td>
             </tr>
           </table>
           EOF
 
       - name: Create PR comment
-        if: ${{ steps.deploy-preview.outcome == 'success' }}
+        if: ${{ steps.deploy-pages-preview.outcome == 'success' && steps.deploy-storybook-preview.outcome == 'success' }}
         run: |
           gh pr comment ${{ github.event.number }} --body-file comment.md
         env:

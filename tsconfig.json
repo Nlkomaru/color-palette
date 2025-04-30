@@ -1,13 +1,23 @@
 {
   "files": [],
-  "references": [{ "path": "./tsconfig.node.json" }, { "path": "./tsconfig.cloudflare.json" }],
+  "references": [
+    {
+      "path": "./tsconfig.node.json"
+    },
+    {
+      "path": "./tsconfig.cloudflare.json"
+    }
+  ],
   "compilerOptions": {
     "checkJs": true,
     "verbatimModuleSyntax": true,
     "skipLibCheck": true,
     "strict": true,
     "noEmit": true,
-    "types": ["@cloudflare/workers-types/2023-07-01"]
+    "types": ["@cloudflare/workers-types/2023-07-01"],
+    "paths": {
+      "@/*": ["./src/*"]
+    }
   },
-  "include": ["app", "styled-system"]
+  "include": ["app", "styled-system", "app/routes"]
 }
