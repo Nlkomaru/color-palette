@@ -1,5 +1,6 @@
 import type { Route } from "./+types/home";
-import { Welcome } from "../welcome/welcome";
+import { css } from "styled-system/css";
+import { ColorPicker } from "../components/ui/color-picker";
 
 export function meta({}: Route.MetaArgs) {
   return [
@@ -13,5 +14,9 @@ export function loader({ context }: Route.LoaderArgs) {
 }
 
 export default function Home({ loaderData }: Route.ComponentProps) {
-  return <Welcome message={loaderData.message} />;
+  return (
+    <>
+      <ColorPicker />
+    </>
+  )
 }

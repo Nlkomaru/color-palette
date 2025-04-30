@@ -1,0 +1,58 @@
+name: Deploy
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    env:
+      AUTH_SECRET: ${{ secrets.AUTH_SECRET }}
+      MAIN_SERVER_URL: ${{ secrets.MAIN_SERVER_URL }}
+      SERVER_URL: ${{ secrets.SERVER_URL }}
+      SERVERS: ${{ secrets.SERVERS }}
+      CLIENT_ID: ${{ secrets.CLIENT_ID }}
+      AUTH_URL: ${{ secrets.AUTH_URL }}
+
+    runs-on: ubuntu-latest
+    name: Deploy
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - uses: pnpm/action-setup@v4
+        name: Install pnpm
+        with:
+          run_install: false
+
+      - name: Install
+        run: |
+          pnpm install
+
+      - name: Build
+        run: |
+          pnpm run pages:build
+
+      - name: Deploy
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CF_API_KEY }}
+          accountId: ${{ secrets.CF_ACCOUNT_ID }}
+          secrets: |
+            AUTH_SECRET
+            MAIN_SERVER_URL
+            SERVER_URL
+            SERVERS
+            CLIENT_ID
+            AUTH_URL
+        env:
+          AUTH_SECRET: ${{ secrets.AUTH_SECRET }}
+          MAIN_SERVER_URL: ${{ secrets.MAIN_SERVER_URL }}
+          SERVER_URL: ${{ secrets.SERVER_URL }}
+          SERVERS: ${{ secrets.SERVERS }}
+          CLIENT_ID: ${{ secrets.CLIENT_ID }}
+          AUTH_URL: ${{ secrets.AUTH_URL }}

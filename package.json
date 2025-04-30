@@ -11,7 +11,10 @@
 		"typecheck": "npm run cf-typegen && react-router typegen && tsc -b"
 	},
 	"dependencies": {
+		"@ark-ui/react": "^5.7.0",
+		"autoprefixer": "^10.4.21",
 		"isbot": "^5.1.17",
+		"nuqs": "^2.4.3",
 		"react": "^19.0.0",
 		"react-dom": "^19.0.0",
 		"react-router": "^7.5.0"
@@ -19,8 +22,8 @@
 	"devDependencies": {
 		"@cloudflare/vite-plugin": "^1.0.0",
 		"@cloudflare/workers-types": "^4.20250428.0",
+		"@pandacss/dev": "^0.53.6",
 		"@react-router/dev": "^7.5.0",
-		"@tailwindcss/vite": "^4.0.0",
 		"@types/node": "^20",
 		"@types/react": "^19.0.1",
 		"@types/react-dom": "^19.0.1",
