@@ -1,17 +1,12 @@
-import { reactRouter } from "@react-router/dev/vite";
 import { cloudflare } from "@cloudflare/vite-plugin";
+import pandacss from "@pandacss/dev/postcss";
+import { reactRouter } from "@react-router/dev/vite";
 import autoprefixer from "autoprefixer";
 import { defineConfig } from "vite";
 import tsconfigPaths from "vite-tsconfig-paths";
-import pandacss from "@pandacss/dev/postcss";
-
 
 export default defineConfig({
-  plugins: [
-    cloudflare({ viteEnvironment: { name: "ssr" } }),
-    reactRouter(),
-    tsconfigPaths(),
-  ],
+  plugins: [cloudflare({ viteEnvironment: { name: "ssr" } }), reactRouter(), tsconfigPaths()],
   css: {
     postcss: {
       plugins: [pandacss, autoprefixer],
@@ -19,7 +14,7 @@ export default defineConfig({
   },
   server: {
     watch: {
-      usePolling: true
-    }
-  }
+      usePolling: true,
+    },
+  },
 });

@@ -1,12 +1,8 @@
-import type { Route } from "./+types/home";
-import { css } from "styled-system/css";
 import { ColorPicker } from "../components/ui/color-picker";
+import type { Route } from "./+types/home";
 
-export function meta({}: Route.MetaArgs) {
-  return [
-    { title: "New React Router App" },
-    { name: "description", content: "Welcome to React Router!" },
-  ];
+export function meta() {
+  return [{ title: "New React Router App" }, { name: "description", content: "Welcome to React Router!" }];
 }
 
 export function loader({ context }: Route.LoaderArgs) {
@@ -18,5 +14,5 @@ export default function Home({ loaderData }: Route.ComponentProps) {
     <>
       <ColorPicker />
     </>
-  )
+  );
 }
