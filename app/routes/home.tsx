@@ -1,4 +1,3 @@
-import { ColorPicker } from "../components/ui/color-picker";
 import type { Route } from "./+types/home";
 
 export function meta() {
@@ -12,7 +11,7 @@ export function loader({ context }: Route.LoaderArgs) {
 export default function Home({ loaderData }: Route.ComponentProps) {
   return (
     <>
-      <ColorPicker />
+      <div> Hello Panda</div>
     </>
   );
 }
