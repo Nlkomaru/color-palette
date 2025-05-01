@@ -1,4 +1,4 @@
-import { Button } from "../components/ui/button";
+import { Button } from "@chakra-ui/react";
 import type { Route } from "./+types/home";
 export function meta() {
     return [
