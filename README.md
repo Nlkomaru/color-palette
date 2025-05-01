@@ -1,5 +1,8 @@
 # Welcome to React Router!
 
+Color Palette : https://color-palette.nikomaru.workers.dev/ <br>
+Storybook: https://color-palette-storybook.pages.dev
+
 A modern, production-ready template for building full-stack React applications using React Router.
 
 ## Features
