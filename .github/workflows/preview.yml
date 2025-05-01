@@ -47,8 +47,8 @@ jobs:
           <table>
             <tr>
               <td>Preview URL</td>
-              <td>${{ steps.deploy-pages-preview.deployment-url }}</td>
-              <td>${{ steps.deploy-storybook-preview.deployment-url }}</td>
+              <td>${{ steps.deploy-pages-preview.outputs.deployment-alias-url }}</td>
+              <td>${{ steps.deploy-storybook-preview.outputs.deployment-alias-url }}</td>
             </tr>
           </table>
           EOF
