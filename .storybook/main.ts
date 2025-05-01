@@ -16,5 +16,12 @@ const config: StorybookConfig = {
       },
     },
   },
+  viteFinal: async (config, { configType }) => {
+    config.esbuild = {
+      ...config.esbuild,
+      jsx: "automatic",
+    };
+    return config;
+  },
 };
 export default config;
