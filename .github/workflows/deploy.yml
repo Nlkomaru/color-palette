@@ -29,11 +29,10 @@ jobs:
 
       - name: Build
         run: |
-          pnpm run build
+          pnpm run pages:build
 
       - name: Deploy
         uses: cloudflare/wrangler-action@v3
         with:
           apiToken: ${{ secrets.CF_API_KEY }}
           accountId: ${{ secrets.CF_ACCOUNT_ID }}
-          

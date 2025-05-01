@@ -1,8 +1,10 @@
-import { ColorPicker } from "../components/ui/color-picker";
+import { Button } from "../components/ui/button";
 import type { Route } from "./+types/home";
-
 export function meta() {
-  return [{ title: "New React Router App" }, { name: "description", content: "Welcome to React Router!" }];
+  return [
+    { title: "Color Palette Generator" },
+    { name: "description", content: "Welcome to Color Palette Generator!" },
+  ];
 }
 
 export function loader({ context }: Route.LoaderArgs) {
@@ -12,7 +14,8 @@ export function loader({ context }: Route.LoaderArgs) {
 export default function Home({ loaderData }: Route.ComponentProps) {
   return (
     <>
-      <ColorPicker />
+      <div> Hello Panda</div>
+      <Button>Click me</Button>
     </>
   );
 }

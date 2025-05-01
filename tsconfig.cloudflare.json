@@ -6,7 +6,9 @@
     "app/**/.server/**/*",
     "app/**/.client/**/*",
     "workers/**/*",
-    "worker-configuration.d.ts"
+    "worker-configuration.d.ts",
+    "app/routes",
+    "postcss.config.ts"
   ],
   "compilerOptions": {
     "composite": true,
