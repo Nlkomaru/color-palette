@@ -24,22 +24,30 @@ jobs:
         run: |
           pnpm install
 
-      - name: Build and deploy
+      - name: Build 
         strategy:
           matrix:
             target: ['pages', 'storybook']
         steps:
           - name: Build ${{ matrix.target }}
             run: |
-              pnpm run ${{ matrix.target }}:build
+              pnpm run ${{ matrix.target }}:build 
 
-          - name: Deploy ${{ matrix.target }} preview
-            id: deploy-${{ matrix.target }}-preview
-            uses: cloudflare/wrangler-action@v3
-            with:
-              apiToken: ${{ secrets.CF_API_KEY }}
-              accountId: ${{ secrets.CF_ACCOUNT_ID }}
-              command: versions upload --message "Deployed by GitHub Actions branch ${{ github.ref }} ${{ matrix.target }}"
+      - name: Deploy pages preview
+        id: deploy-pages-preview
+        uses: cloudflare/wrangler-action@v3
+          with:
+            apiToken: ${{ secrets.CF_API_KEY }}
+            accountId: ${{ secrets.CF_ACCOUNT_ID }}
+            command: versions upload --message "Deployed pages by GitHub Actions branch ${{ github.ref }}"
+
+      - name: Deploy storybook preview
+        id: deploy-storybook-preview
+        uses: cloudflare/wrangler-action@v3
+          with:
+            apiToken: ${{ secrets.CF_API_KEY }}
+            accountId: ${{ secrets.CF_ACCOUNT_ID }}
+            command: versions upload --message "Deployed storybook by GitHub Actions branch ${{ github.ref }}"
 
       - name: Create comment file
         run: |

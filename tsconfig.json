@@ -13,11 +13,12 @@
     "verbatimModuleSyntax": true,
     "skipLibCheck": true,
     "strict": true,
-    "noEmit": true,
+    "noEmit": false,
     "types": ["@cloudflare/workers-types/2023-07-01"],
+    "jsx": "react",
     "paths": {
       "@/*": ["./src/*"]
     }
   },
-  "include": ["app", "styled-system", "app/routes"]
+  "include": ["app", "styled-system", "app/routes", "postcss.config.ts"]
 }

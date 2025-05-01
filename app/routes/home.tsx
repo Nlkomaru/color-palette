@@ -1,5 +1,5 @@
-import type { Route } from "./+types/home";
 import { Button } from "../components/ui/button";
+import type { Route } from "./+types/home";
 export function meta() {
   return [
     { title: "Color Palette Generator" },
