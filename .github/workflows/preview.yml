@@ -51,7 +51,13 @@ jobs:
           echo $DEPLOYMENT_URL
           echo $STORYBOOK_DEPLOYMENT_URL
           echo $STORYBOOK_BRANCH_URL
+
       - name: Create comment file
+        id: create-comment-file
+        env:
+          DEPLOYMENT_URL: ${{ steps.deploy-pages-preview.outputs.deployment-url }}
+          STORYBOOK_DEPLOYMENT_URL: ${{ steps.deploy-storybook-preview.outputs.deployment-url }}
+          STORYBOOK_BRANCH_URL: ${{ steps.deploy-storybook-preview.outputs.deployment-alias-url }}
         run: |
           cat  << EOF > comment.md
           ## 🚀 Deploying color-palette with Cloudflare Pages and Cloudflare Storybook
