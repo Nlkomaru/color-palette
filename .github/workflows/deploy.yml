@@ -27,12 +27,24 @@ jobs:
         run: |
           pnpm install
 
-      - name: Build
+      - name: Build pages
         run: |
-          pnpm run pages:build
+          pnpm run build
+
+      - name: Build storybook
+        run: |
+          pnpm run build:storybook
 
       - name: Deploy
         uses: cloudflare/wrangler-action@v3
         with:
           apiToken: ${{ secrets.CF_API_KEY }}
           accountId: ${{ secrets.CF_ACCOUNT_ID }}
+
+      - name: Deploy storybook preview
+        id: deploy-storybook-preview
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CF_API_KEY }}
+          accountId: ${{ secrets.CF_ACCOUNT_ID }}
+          command: pages deploy ./storybook-static --project-name "color-palette-storybook"

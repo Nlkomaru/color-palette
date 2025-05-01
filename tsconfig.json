@@ -1,24 +1,25 @@
 {
-  "files": [],
-  "references": [
-    {
-      "path": "./tsconfig.node.json"
+    "files": [],
+    "references": [
+        {
+            "path": "./tsconfig.node.json"
+        },
+        {
+            "path": "./tsconfig.cloudflare.json"
+        }
+    ],
+    "compilerOptions": {
+        "checkJs": true,
+        "verbatimModuleSyntax": true,
+        "skipLibCheck": true,
+        "strict": true,
+        "noEmit": false,
+        "types": ["@cloudflare/workers-types/2023-07-01"],
+        "jsx": "react",
+        "baseUrl": ".",
+        "paths": {
+            "@/*": ["./app/*"]
+        }
     },
-    {
-      "path": "./tsconfig.cloudflare.json"
-    }
-  ],
-  "compilerOptions": {
-    "checkJs": true,
-    "verbatimModuleSyntax": true,
-    "skipLibCheck": true,
-    "strict": true,
-    "noEmit": false,
-    "types": ["@cloudflare/workers-types/2023-07-01"],
-    "jsx": "react",
-    "paths": {
-      "@/*": ["./src/*"]
-    }
-  },
-  "include": ["app", "styled-system", "app/routes", "postcss.config.ts"]
+    "include": ["app", "styled-system", "app/routes", "postcss.config.ts"]
 }
