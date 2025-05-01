@@ -6,7 +6,6 @@ on:
 
 jobs:
   deploy:
-
     runs-on: ubuntu-latest
     name: Deploy
     steps:
@@ -14,25 +13,15 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
-
       - uses: pnpm/action-setup@v4
-        name: Install pnpm
         with:
           run_install: false
-
       - name: Install
-        run: |
-          pnpm install
-
-      - name: Build 
-        strategy:
-          matrix:
-            target: ['pages', 'storybook']
-        steps:
-          - name: Build ${{ matrix.target }}
-            run: |
-              pnpm run ${{ matrix.target }}:build 
-
+        run: pnpm install
+      - name: Build pages
+        run: pnpm run pages:build
+      - name: Build storybook
+        run: pnpm run storybook:build
       - name: Deploy pages preview
         id: deploy-pages-preview
         uses: cloudflare/wrangler-action@v3
@@ -40,7 +29,6 @@ jobs:
           apiToken: ${{ secrets.CF_API_KEY }}
           accountId: ${{ secrets.CF_ACCOUNT_ID }}
           command: versions upload --message "Deployed pages by GitHub Actions branch ${{ github.ref }}"
-
       - name: Deploy storybook preview
         id: deploy-storybook-preview
         uses: cloudflare/wrangler-action@v3
@@ -48,7 +36,6 @@ jobs:
           apiToken: ${{ secrets.CF_API_KEY }}
           accountId: ${{ secrets.CF_ACCOUNT_ID }}
           command: versions upload --message "Deployed storybook by GitHub Actions branch ${{ github.ref }}"
-
       - name: Create comment file
         run: |
           cat  << EOF > comment.md
@@ -61,10 +48,8 @@ jobs:
             </tr>
           </table>
           EOF
-
       - name: Create PR comment
         if: ${{ steps.deploy-pages-preview.outcome == 'success' && steps.deploy-storybook-preview.outcome == 'success' }}
-        run: |
-          gh pr comment ${{ github.event.number }} --body-file comment.md
+        run: gh pr comment ${{ github.event.number }} --body-file comment.md
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
