@@ -23,9 +23,9 @@ jobs:
       - name: Install
         run: pnpm install
       - name: Build pages
-        run: pnpm run pages:build
+        run: pnpm run build
       - name: Build storybook
-        run: pnpm run storybook:build
+        run: pnpm run build:storybook
       - name: Deploy pages preview
         id: deploy-pages-preview
         uses: cloudflare/wrangler-action@v3
@@ -40,7 +40,7 @@ jobs:
         with:
           apiToken: ${{ secrets.CF_API_KEY }}
           accountId: ${{ secrets.CF_ACCOUNT_ID }}
-          command: pages deploy ./storybook-static --project-name "color-palette-storybook" --branch="${{ github.ref_name }}"
+          command: pages deploy ./storybook-static --project-name "color-palette-storybook" --branch="${{ github.head_ref }}"
 
       - name: print deployment-url
         env:
@@ -60,7 +60,7 @@ jobs:
           STORYBOOK_BRANCH_URL: ${{ steps.deploy-storybook-preview.outputs.deployment-alias-url }}
         run: |
           cat  << EOF > comment.md
-          ## 🚀 Deploying color-palette with Cloudflare Pages and Cloudflare Storybook
+          ## 🚀 Deploying ${{ github.event.repository.name }} with Cloudflare Workers
           <table>
             <tr>
               <th scope="row">Preview URL</th>
