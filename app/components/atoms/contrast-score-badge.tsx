@@ -12,9 +12,7 @@ export const ContrastScoreBadge = ({ targetColor, baseColor }: ContrastScoreBadg
     const rgb = converter("rgb")
     
     const targetColorRgb = rgb(targetColor)
-    console.log(targetColorRgb)
     const baseColorRgb = rgb(baseColor)
-    console.log(baseColorRgb)
     if (!targetColorRgb || !baseColorRgb) {
         return null;
     }
