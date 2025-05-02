@@ -1,9 +1,7 @@
 import "../app/app.css";
 import { ChakraProvider, defaultSystem } from "@chakra-ui/react";
 import type { Preview } from "@storybook/react";
-import { withScreenshot } from "storycap";
 
-export const decorators = [withScreenshot];
 export const parameters = {
     screenshot: {
         provider: {
