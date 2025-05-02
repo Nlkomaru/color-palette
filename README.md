@@ -3,6 +3,7 @@
 > [!WARNING]
 > ⚠️ This project is currently under development.
 
+
 ✨ A web application for creating and sharing beautiful color palettes!
 
 ## 🔗 Links
