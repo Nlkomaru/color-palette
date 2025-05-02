@@ -20,3 +20,9 @@ styled-system-studio
 storybook-static
 
 .vscode/
+
+reports/
+playwright-report/
+
+tests/e2e/vrt.spec.ts-snapshots/*
+test-results/

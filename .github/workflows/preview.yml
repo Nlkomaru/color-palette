@@ -22,10 +22,10 @@ jobs:
           run_install: false
       - name: Install
         run: pnpm install
+
       - name: Build pages
         run: pnpm run build
-      - name: Build storybook
-        run: pnpm run build:storybook
+        
       - name: Deploy pages preview
         id: deploy-pages-preview
         uses: cloudflare/wrangler-action@v3

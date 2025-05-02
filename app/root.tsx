@@ -12,6 +12,7 @@ import { Provider } from "./components/ui/provider";
 import type { Route } from "./+types/root";
 import stylesheet from "./app.css?url";
 
+import { ThemeProvider } from "next-themes";
 export const links: LinksFunction = () => [{ rel: "stylesheet", href: stylesheet }];
 
 export function Layout({ children }: { children: React.ReactNode }) {
@@ -34,9 +35,17 @@ export function Layout({ children }: { children: React.ReactNode }) {
 
 export default function App() {
     return (
-        <Provider>
-            <Outlet />
-        </Provider>
+        <ThemeProvider
+            defaultTheme="light"
+            value={{
+                light: "light",
+                dark: "dark",
+            }}
+        >
+            <Provider>
+                <Outlet />
+            </Provider>
+        </ThemeProvider>
     );
 }
 

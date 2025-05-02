@@ -10,10 +10,13 @@ export function ColorPickerInput() {
 
     return (
         <ColorPicker.Root defaultValue={parseColor(color)}>
-            <ColorPicker.HiddenInput />
-            <ColorPicker.Label />
+            <ColorPicker.Label htmlFor="color-picker-input">Color</ColorPicker.Label>
             <ColorPicker.Control>
-                <ColorPicker.Input value={color} onChange={(e) => setColor(e.target.value)} />
+                <ColorPicker.Input
+                    onChange={(e) => {
+                        parseColor(e.target.value) && setColor(e.target.value);
+                    }}
+                />
                 <ColorPicker.Trigger />
             </ColorPicker.Control>
             <ColorPicker.Positioner>

@@ -13,9 +13,11 @@ export function ColorBox({ color }: ColorBoxProps) {
                 borderRadius: "0.5rem",
                 backgroundColor: "var(--color)",
             })}
-            style={{
-                "--color": color,
-            } as React.CSSProperties}
+            style={
+                {
+                    "--color": color,
+                } as React.CSSProperties
+            }
         />
     );
 }

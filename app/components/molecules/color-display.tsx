@@ -7,6 +7,9 @@ export function ColorDisplay() {
         <div
             className={css({
                 width: "15rem",
+                display: "flex",
+                flexDirection: "column",
+                gap: "0.5rem",
             })}
         >
             <Field.Root>
