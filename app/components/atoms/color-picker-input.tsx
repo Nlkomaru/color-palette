@@ -6,10 +6,9 @@ import { ColorPicker, parseColor } from "@chakra-ui/react";
 type ColorPickerInputProps = {
     color: string;
     onChangeColor: (color: string) => void;
-    onChangeId: (id: string) => void;
 };
 
-export function ColorPickerInput({ color, onChangeColor, onChangeId }: ColorPickerInputProps) {
+export function ColorPickerInput({ color, onChangeColor }: ColorPickerInputProps) {
     return (
         <ColorPicker.Root
             defaultValue={parseColor(color)}
