@@ -1,3 +1,4 @@
+import { NuqsAdapter } from "nuqs/adapters/react-router/v7";
 import {
     Links,
     type LinksFunction,
@@ -7,17 +8,16 @@ import {
     ScrollRestoration,
     isRouteErrorResponse,
 } from "react-router";
-import { Provider } from "./components/ui/provider";
-
 import type { Route } from "./+types/root";
 import stylesheet from "./app.css?url";
+import { Provider } from "./components/ui/provider";
 
 import { ThemeProvider } from "next-themes";
 export const links: LinksFunction = () => [{ rel: "stylesheet", href: stylesheet }];
 
 export function Layout({ children }: { children: React.ReactNode }) {
     return (
-        <html lang="en">
+        <html lang="en" suppressHydrationWarning>
             <head>
                 <meta charSet="utf-8" />
                 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -43,7 +43,9 @@ export default function App() {
             }}
         >
             <Provider>
-                <Outlet />
+                <NuqsAdapter>
+                    <Outlet />
+                </NuqsAdapter>
             </Provider>
         </ThemeProvider>
     );

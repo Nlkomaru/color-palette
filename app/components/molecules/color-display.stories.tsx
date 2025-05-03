@@ -11,5 +11,10 @@ export default meta;
 type Story = StoryObj<typeof ColorDisplay>;
 
 export const Default: Story = {
-    args: {},
+    args: {
+        color: "#000000",
+        id: "0",
+        onChangeColor: () => {},
+        onChangeId: () => {},
+    },
 };

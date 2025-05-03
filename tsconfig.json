@@ -16,10 +16,7 @@
         "noEmit": false,
         "types": ["@cloudflare/workers-types/2023-07-01"],
         "jsx": "react",
-        "baseUrl": ".",
-        "paths": {
-            "@/*": ["./app/*"]
-        }
+        "baseUrl": "."
     },
     "include": ["app", "styled-system", "app/routes", "postcss.config.ts"]
 }
