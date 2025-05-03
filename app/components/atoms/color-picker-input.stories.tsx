@@ -17,6 +17,5 @@ export const Default: Story = {
     args: {
         color: "#FF0000",
         onChangeColor: () => {},
-        onChangeId: () => {},
     },
 };

@@ -15,8 +15,9 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
     args: {
-        color: "#000000",
-        id: "0",
+        colorValue: "#000000",
+        colorId: "0",
+        uniqueId: "0",
         displayColors: ["#000000", "#000000", "#000000", "#000000", "#000000"],
         lightBackgroundColor: "#ffffff",
         darkBackgroundColor: "#000000",

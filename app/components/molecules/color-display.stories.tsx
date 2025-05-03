@@ -12,8 +12,8 @@ type Story = StoryObj<typeof ColorDisplay>;
 
 export const Default: Story = {
     args: {
-        color: "#000000",
-        id: "0",
+        colorId: "0",
+        colorValue: "#000000",
         onChangeColor: () => {},
         onChangeId: () => {},
     },
