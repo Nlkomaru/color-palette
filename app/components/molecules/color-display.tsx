@@ -3,13 +3,13 @@ import { css } from "../../../styled-system/css";
 import { ColorPickerInput } from "../atoms/color-picker-input";
 
 type ColorDisplayProps = {
-    color: string;
-    id: string;
+    colorValue: string;
+    colorId: string;
     onChangeColor: (color: string) => void;
     onChangeId: (id: string) => void;
 };
 
-export function ColorDisplay({ color, id, onChangeColor, onChangeId }: ColorDisplayProps) {
+export function ColorDisplay({ colorValue, colorId, onChangeColor, onChangeId }: ColorDisplayProps) {
     return (
         <div
             className={css({
@@ -22,9 +22,9 @@ export function ColorDisplay({ color, id, onChangeColor, onChangeId }: ColorDisp
         >
             <Field.Root>
                 <Field.Label>Color id</Field.Label>
-                <Input placeholder="green" value={id} onChange={(e) => onChangeId(e.target.value)} />
+                <Input placeholder="green" value={colorId} onChange={(e) => onChangeId(e.target.value)} />
             </Field.Root>
-            <ColorPickerInput color={color} onChangeColor={onChangeColor} onChangeId={onChangeId} />
+            <ColorPickerInput color={colorValue} onChangeColor={onChangeColor} />
         </div>
     );
 }

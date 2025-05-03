@@ -4,8 +4,9 @@ import { ColorContrastBox } from "../molecules/color-contrast-box";
 import { ColorDisplay } from "../molecules/color-display";
 
 export type ColorPalettePreviewProps = {
-    color: string;
-    id: string;
+    colorValue: string;
+    colorId: string;
+    uniqueId: string;
     displayColors: string[];
     onChangeColor: (color: string) => void;
     onChangeId: (id: string) => void;
@@ -20,8 +21,9 @@ export type ColorPalettePreviewProps = {
  * @param darkBackgroundColor - 暗い背景色
  */
 export const ColorPalettePreview = ({
-    id,
-    color,
+    colorValue,
+    colorId,
+    uniqueId,
     displayColors,
     lightBackgroundColor,
     darkBackgroundColor,
@@ -30,11 +32,16 @@ export const ColorPalettePreview = ({
 }: ColorPalettePreviewProps) => {
     return (
         <HStack gap="8" alignItems="flex-start" height="9rem">
-            <ColorDisplay id={id} color={color} onChangeColor={onChangeColor} onChangeId={onChangeId} />
+            <ColorDisplay
+                colorId={colorId}
+                colorValue={colorValue}
+                onChangeColor={onChangeColor}
+                onChangeId={onChangeId}
+            />
             <div className={css({ display: "flex", gap: "4", flexWrap: "wrap", height: "100%", paddingTop: "0.5rem" })}>
                 {displayColors.map((color, index) => (
                     <ColorContrastBox
-                        key={crypto.randomUUID()}
+                        key={`${uniqueId}-${index}`}
                         index={index}
                         targetColor={color}
                         lightBackgroundColor={lightBackgroundColor}

@@ -4,8 +4,9 @@ import { VStack } from "../../styled-system/jsx";
 import type { Route } from "./+types/home";
 
 type ColorPalette = {
-    color: string;
-    id: string;
+    colorValue: string;
+    colorId: string;
+    uniqueId: number;
 };
 
 export function meta() {
@@ -23,8 +24,9 @@ export default function Home({ loaderData }: Route.ComponentProps) {
     const [colors, setColors] = useQueryState<ColorPalette[]>("data", {
         defaultValue: [
             {
-                color: "#000000",
-                id: "0",
+                colorValue: "#000000",
+                colorId: "0",
+                uniqueId: 1,
             },
         ],
         parse: (value) => JSON.parse(value),
@@ -37,29 +39,35 @@ export default function Home({ loaderData }: Route.ComponentProps) {
         serialize: (value) => String(value),
     });
 
+    const lastUniqueId = colors.at(-1)?.uniqueId ?? 1;
+
     const addColorPalette = () => {
-        setColors([...colors, { color: "#000000", id: String(length) }]);
+        setColors([
+            ...colors,
+            { colorValue: "#000000", colorId: String(length), uniqueId: lastUniqueId + 1 },
+        ]);
         setLength(length + 1);
     };
 
-    const removeColorPalette = (index: number) => {
-        setColors(colors.filter((_, i) => i !== index));
+    const removeColorPalette = (uniqueId: number) => {
+        setColors(colors.filter(({ uniqueId: id }) => id !== uniqueId));
     };
 
     return (
         <>
-            <VStack gap="4rem">
-                {colors.map(({ color, id }, index) => (
+            <VStack gap="4rem" alignItems="flex-start">
+                {colors.map(({ colorValue: color, colorId: id, uniqueId }, index) => (
                     <ColorPalettePreview
-                        key={`${color}-${id}`}
-                        color={color}
-                        displayColors={getColor(color, 5, "constant")}
-                        id={id}
+                        key={uniqueId}
+                        colorValue={color}
+                        displayColors={getColor(color, length, "constant")}
+                        colorId={id}
+                        uniqueId={uniqueId}
                         onChangeColor={(newColor: string) =>
-                            setColors(colors.map((c, i) => (i === index ? { ...c, color: newColor } : c)))
+                            setColors(colors.map((c, i) => (i === index ? { ...c, colorValue: newColor } : c)))
                         }
                         onChangeId={(newId: string) =>
-                            setColors(colors.map((c, i) => (i === index ? { ...c, id: newId } : c)))
+                            setColors(colors.map((c, i) => (i === index ? { ...c, colorId: newId } : c)))
                         }
                         lightBackgroundColor="#ffffff"
                         darkBackgroundColor="#000000"
