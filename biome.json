@@ -13,7 +13,16 @@
         "enabled": true,
         "indentStyle": "space",
         "indentWidth": 4,
-        "ignore": [".next", "node_modules", "public", "styled-system", "app/components/ui", "env.d.ts", "app/build"],
+        "ignore": [
+            ".next",
+            "node_modules",
+            "public",
+            "styled-system",
+            "app/components/ui",
+            "env.d.ts",
+            "app/build",
+            "worker-configuration.d.ts"
+        ],
         "lineWidth": 120
     },
     "organizeImports": {
@@ -21,7 +30,16 @@
     },
     "linter": {
         "enabled": true,
-        "ignore": [".next", "node_modules", "public", "styled-system", "app/components/ui", "env.d.ts", "app/build"],
+        "ignore": [
+            ".next",
+            "node_modules",
+            "public",
+            "styled-system",
+            "app/components/ui",
+            "env.d.ts",
+            "app/build",
+            "worker-configuration.d.ts"
+        ],
         "rules": {
             "recommended": true,
             "correctness": {

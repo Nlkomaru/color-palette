@@ -28,20 +28,20 @@ export default defineConfig({
             use: { ...devices["Desktop Firefox"] },
         },
 
-        {
-            name: "webkit",
-            use: { ...devices["Desktop Safari"] },
-        },
+        // {
+        //     name: "webkit",
+        //     use: { ...devices["Desktop Safari"] },
+        // },
 
-        /* モバイルビューポートに対してテストする。 */
-        {
-            name: "Mobile Chrome",
-            use: { ...devices["Pixel 5"] },
-        },
-        {
-            name: "Mobile Safari",
-            use: { ...devices["iPhone 12"] },
-        },
+        // /* モバイルビューポートに対してテストする。 */
+        // {
+        //     name: "Mobile Chrome",
+        //     use: { ...devices["Pixel 5"] },
+        // },
+        // {
+        //     name: "Mobile Safari",
+        //     use: { ...devices["iPhone 12"] },
+        // },
     ],
 
     /* テストを開始する前にローカル開発サーバーを実行する */

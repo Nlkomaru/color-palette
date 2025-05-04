@@ -16,9 +16,12 @@ export default defineConfig({
     },
     globalCss: {
         body: {
-            fontFamily: "Poppins, sans-serif",
+            fontFamily: "Poppins, Zen Kaku Gothic New, sans-serif",
+            color: "var(--chakra-colors-fg-muted)",
         },
     },
+
+    jsxFramework: "react",
 
     // The output directory for your css system
     outdir: "styled-system",

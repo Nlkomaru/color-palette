@@ -38,7 +38,6 @@ export const PastelColors: Story = {
     },
 };
 
-
 // oklch
 export const Oklch: Story = {
     args: {
