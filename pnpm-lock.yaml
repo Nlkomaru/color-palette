@@ -14,6 +14,9 @@ importers:
       '@emotion/react':
         specifier: ^11.14.0
         version: 11.14.0(@types/react@19.1.2)(react@19.1.0)
+      '@storybook/addon-themes':
+        specifier: ^8.6.12
+        version: 8.6.12(storybook@8.6.12(prettier@3.2.5))
       autoprefixer:
         specifier: ^10.4.21
         version: 10.4.21(postcss@8.4.49)
@@ -84,6 +87,9 @@ importers:
       '@storybook/experimental-addon-test':
         specifier: ^8.6.12
         version: 8.6.12(@vitest/browser@3.1.2)(@vitest/runner@3.1.2)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(storybook@8.6.12(prettier@3.2.5))(vitest@3.1.2)
+      '@storybook/manager-api':
+        specifier: ^8.6.12
+        version: 8.6.12(storybook@8.6.12(prettier@3.2.5))
       '@storybook/react':
         specifier: ^8.6.12
         version: 8.6.12(@storybook/test@8.6.12(storybook@8.6.12(prettier@3.2.5)))(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(storybook@8.6.12(prettier@3.2.5))(typescript@5.8.3)
@@ -96,6 +102,9 @@ importers:
       '@storybook/test-runner':
         specifier: ^0.22.0
         version: 0.22.0(@swc/helpers@0.5.17)(@types/node@20.17.32)(babel-plugin-macros@3.1.0)(storybook@8.6.12(prettier@3.2.5))
+      '@storybook/theming':
+        specifier: ^8.6.12
+        version: 8.6.12(storybook@8.6.12(prettier@3.2.5))
       '@types/culori':
         specifier: ^2.1.1
         version: 2.1.1
@@ -1481,6 +1490,11 @@ packages:
 
   '@storybook/addon-outline@8.6.12':
     resolution: {integrity: sha512-1ylwm+n1s40S91No0v9T4tCjZORu3GbnjINlyjYTDLLhQHyBQd3nWR1Y1eewU4xH4cW9SnSLcMQFS/82xHqU6A==}
+    peerDependencies:
+      storybook: ^8.6.12
+
+  '@storybook/addon-themes@8.6.12':
+    resolution: {integrity: sha512-eqE40MUKTz9lLEOusXjRuDC7DwCSIwlgEnlbvhhEEme8IeKf2di6yvlhenY4nn5QfkUwY1POnZxfJ2OpXj0gqQ==}
     peerDependencies:
       storybook: ^8.6.12
 
@@ -7048,6 +7062,11 @@ snapshots:
   '@storybook/addon-outline@8.6.12(storybook@8.6.12(prettier@3.2.5))':
     dependencies:
       '@storybook/global': 5.0.0
+      storybook: 8.6.12(prettier@3.2.5)
+      ts-dedent: 2.2.0
+
+  '@storybook/addon-themes@8.6.12(storybook@8.6.12(prettier@3.2.5))':
+    dependencies:
       storybook: 8.6.12(prettier@3.2.5)
       ts-dedent: 2.2.0
 

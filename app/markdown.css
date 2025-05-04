@@ -8,7 +8,8 @@
         line-height: 1.8;
     }
 
-    & ol, & ul {
+    & ol,
+    & ul {
         padding-left: 2rem;
         margin: 1.5rem 0;
 

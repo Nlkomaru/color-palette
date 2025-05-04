@@ -1,5 +1,5 @@
 import { Badge } from "@chakra-ui/react";
-import { type Rgb, converter } from "culori";
+import { converter, wcagContrast } from "culori";
 import { css } from "../../../styled-system/css";
 
 type ContrastScoreBadgeProps = {
@@ -41,6 +41,8 @@ export const ContrastScoreBadge = ({ targetColor, baseColor }: ContrastScoreBadg
                 justifyContent: "center",
                 bgColor: "var(--colors-baseColor)",
                 color: "var(--colors-targetColor)",
+                "--shadow-color": "var(--chakra-colors-gray-subtle)",
+                borderColor: "var(--chakra-colors-gray-subtle)",
             })}
             style={
                 {
@@ -52,22 +54,4 @@ export const ContrastScoreBadge = ({ targetColor, baseColor }: ContrastScoreBadg
             {contrastScore}:1
         </Badge>
     );
-};
-
-// 相対輝度を計算する関数
-const getRelativeLuminance = (r: number, g: number, b: number): number => {
-    const [rs, gs, bs] = [r, g, b].map((c) => {
-        return c <= 0.03928 ? c / 12.92 : ((c + 0.055) / 1.055) ** 2.4;
-    });
-    return 0.2126 * rs + 0.7152 * gs + 0.0722 * bs;
-};
-
-const wcagContrast = (targetColor: Rgb, baseColor: Rgb): number => {
-    const l1 = getRelativeLuminance(targetColor.r, targetColor.g, targetColor.b);
-    const l2 = getRelativeLuminance(baseColor.r, baseColor.g, baseColor.b);
-
-    const lighter = Math.max(l1, l2);
-    const darker = Math.min(l1, l2);
-
-    return (lighter + 0.05) / (darker + 0.05);
 };

@@ -14,9 +14,12 @@
 
 /* zen-kaku-gothic-new-japanese-400-normal */
 @font-face {
-    font-family: 'Zen Kaku Gothic New';
+    font-family: "Zen Kaku Gothic New";
     font-style: normal;
     font-display: swap;
     font-weight: 400;
-    src: url(https://cdn.jsdelivr.net/fontsource/fonts/zen-kaku-gothic-new@latest/japanese-400-normal.woff2) format('woff2'), url(https://cdn.jsdelivr.net/fontsource/fonts/zen-kaku-gothic-new@latest/japanese-400-normal.woff) format('woff');
-  }
+    src: url(https://cdn.jsdelivr.net/fontsource/fonts/zen-kaku-gothic-new@latest/japanese-400-normal.woff2)
+        format("woff2"),
+        url(https://cdn.jsdelivr.net/fontsource/fonts/zen-kaku-gothic-new@latest/japanese-400-normal.woff)
+        format("woff");
+}

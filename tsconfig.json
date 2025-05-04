@@ -15,8 +15,7 @@
         "strict": true,
         "noEmit": false,
         "types": ["@cloudflare/workers-types/2023-07-01"],
-        "jsx": "react",
-        "baseUrl": "."
+        "jsx": "react-jsx",
     },
     "include": ["app", "styled-system", "app/routes", "postcss.config.ts"]
 }

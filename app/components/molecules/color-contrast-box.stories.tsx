@@ -18,7 +18,11 @@ export const Default: Story = {
     // render: () => <div>テストなのだ</div>, // ← render を削除
     args: {
         // ← args のコメントアウト解除
-        targetColor: "#ff0000",
+        targetColor: {
+            color: "#ff0000",
+            fallback: "#ff0000",
+            lightness: 0.5,
+        },
         index: 0,
         lightBackgroundColor: "#ffffff",
         darkBackgroundColor: "#000000",
@@ -28,7 +32,11 @@ export const Default: Story = {
 // 白背景に黒文字
 export const WhiteBackground: Story = {
     args: {
-        targetColor: "#000000",
+        targetColor: {
+            color: "#000000",
+            fallback: "#000000",
+            lightness: 0.5,
+        },
         index: 0,
         lightBackgroundColor: "#ffffff",
         darkBackgroundColor: "#000000",
@@ -38,7 +46,11 @@ export const WhiteBackground: Story = {
 // コントラストが低い例
 export const LowContrast: Story = {
     args: {
-        targetColor: "#888888",
+        targetColor: {
+            color: "#888888",
+            fallback: "#888888",
+            lightness: 0.5,
+        },
         index: 0,
         lightBackgroundColor: "#ffffff",
         darkBackgroundColor: "#000000",
@@ -48,7 +60,11 @@ export const LowContrast: Story = {
 // アクセントカラーの例
 export const AccentColor: Story = {
     args: {
-        targetColor: "#3182CE",
+        targetColor: {
+            color: "#3182CE",
+            fallback: "#3182CE",
+            lightness: 0.5,
+        },
         index: 0,
         lightBackgroundColor: "#ffffff",
         darkBackgroundColor: "#000000",

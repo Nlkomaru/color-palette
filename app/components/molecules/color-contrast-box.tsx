@@ -1,10 +1,11 @@
+import type { ColorInfo } from "app/type/type";
 import { type Oklch, clampChroma, converter, parse } from "culori";
 import { css } from "../../../styled-system/css";
 import { VStack } from "../../../styled-system/jsx";
 import { ColorBox } from "../atoms/color-box";
 import { ContrastScoreBadge } from "../atoms/contrast-score-badge";
 type ColorContrastBoxProps = {
-    targetColor: string;
+    targetColor: ColorInfo;
     index: number;
     lightBackgroundColor: string;
     darkBackgroundColor: string;
@@ -22,7 +23,7 @@ export const ColorContrastBox = ({
     darkBackgroundColor,
 }: ColorContrastBoxProps) => {
     const oklchConvert = converter("oklch");
-    const parsedColor = parse(targetColor);
+    const parsedColor = parse(targetColor.color);
     if (!parsedColor) return null;
     const clampedColor = clampChroma(parsedColor, "oklch");
     if (!clampedColor) return null;
@@ -42,8 +43,8 @@ export const ColorContrastBox = ({
                 </div>
                 {/* コントラストスコアを表示するバッジ */}
                 <VStack gap="0.5rem">
-                    <ContrastScoreBadge targetColor={targetColor} baseColor={lightBackgroundColor} />
-                    <ContrastScoreBadge targetColor={targetColor} baseColor={darkBackgroundColor} />
+                    <ContrastScoreBadge targetColor={targetColor.color} baseColor={lightBackgroundColor} />
+                    <ContrastScoreBadge targetColor={targetColor.color} baseColor={darkBackgroundColor} />
                 </VStack>
             </VStack>
         </VStack>

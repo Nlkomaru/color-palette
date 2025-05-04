@@ -21,7 +21,7 @@ export function ColorDisplay({ colorValue, colorId, onChangeColor, onChangeId }:
             })}
         >
             <Field.Root>
-                <Field.Label>Color id</Field.Label>
+                <Field.Label color="black">Color id</Field.Label>
                 <Input placeholder="green" value={colorId} onChange={(e) => onChangeId(e.target.value)} />
             </Field.Root>
             <ColorPickerInput color={colorValue} onChangeColor={onChangeColor} />

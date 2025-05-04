@@ -1,8 +1,9 @@
 import { IconButton, VStack } from "@chakra-ui/react";
 import { FaGithub } from "react-icons/fa";
+import { TbBrandStorybook } from "react-icons/tb";
+import { Link } from "react-router";
 import { css } from "../../../styled-system/css";
 import { HStack } from "../../../styled-system/jsx";
-import { Link } from "react-router";
 
 export const Header = () => {
     return (
@@ -13,11 +14,22 @@ export const Header = () => {
                     <div className={css({ fontSize: "0.8rem" })}>oklch based color palette generator</div>
                 </VStack>
             </Link>
-            <HStack gap="4rem">
+            <HStack gap="3rem">
                 <Link to="/reference">Reference</Link>
-                <Link to="https://github.com/nlkomaru/color-palette" target="_blank" rel="noopener noreferrer">
-                    <IconButton aria-label="GitHub" variant="ghost" size="2xs" as={FaGithub} />
-                </Link>
+                <HStack gap="2rem">
+                    <Link to="https://github.com/nlkomaru/color-palette" target="_blank" rel="noopener noreferrer">
+                        <IconButton aria-label="GitHub" variant="ghost" size="2xs" as={FaGithub} color="black" />
+                    </Link>
+                    <Link to="https://color-palette-storybook.pages.dev/" target="_blank" rel="noopener noreferrer">
+                        <IconButton
+                            aria-label="Storybook"
+                            variant="ghost"
+                            size="2xs"
+                            as={TbBrandStorybook}
+                            color="black"
+                        />
+                    </Link>
+                </HStack>
             </HStack>
         </HStack>
     );

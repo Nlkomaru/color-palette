@@ -1,3 +1,4 @@
+import { ThemeProvider } from "next-themes";
 import { NuqsAdapter } from "nuqs/adapters/react-router/v7";
 import {
     Links,
@@ -12,7 +13,6 @@ import type { Route } from "./+types/root";
 import stylesheet from "./app.css?url";
 import { Provider } from "./components/ui/provider";
 
-import { ThemeProvider } from "next-themes";
 export const links: LinksFunction = () => [{ rel: "stylesheet", href: stylesheet }];
 
 export function Layout({ children }: { children: React.ReactNode }) {

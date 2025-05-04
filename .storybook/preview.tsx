@@ -1,6 +1,8 @@
 import "../app/app.css";
-import { ChakraProvider, defaultSystem } from "@chakra-ui/react";
+import { withThemeByClassName } from "@storybook/addon-themes";
 import type { Preview } from "@storybook/react";
+import { themes } from "@storybook/theming";
+import { Provider } from "../app/components/ui/provider";
 
 export const parameters = {
     screenshot: {
@@ -15,6 +17,9 @@ const preview: Preview = {
             storySort: {
                 order: ["Organisms", "Molecules", "Atoms"],
             },
+        },
+        docs: {
+            theme: themes.light,
         },
         controls: {
             matchers: {
@@ -42,10 +47,14 @@ const preview: Preview = {
     },
     decorators: [
         (Story) => (
-            <ChakraProvider value={defaultSystem}>
+            <Provider>
                 <Story />
-            </ChakraProvider>
+            </Provider>
         ),
+        withThemeByClassName({
+            defaultTheme: "light",
+            themes: { light: "", dark: "dark" },
+        }),
     ],
 };
 

@@ -17,7 +17,7 @@ export default defineConfig({
     globalCss: {
         body: {
             fontFamily: "Poppins, Zen Kaku Gothic New, sans-serif",
-            color: "var(--chakra-colors-fg-muted)"
+            color: "var(--chakra-colors-fg-muted)",
         },
     },
 

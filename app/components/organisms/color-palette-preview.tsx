@@ -1,13 +1,13 @@
+import type { ColorInfo } from "app/type/type";
 import { HStack } from "styled-system/jsx";
 import { css } from "../../../styled-system/css";
 import { ColorContrastBox } from "../molecules/color-contrast-box";
 import { ColorDisplay } from "../molecules/color-display";
-
 export type ColorPalettePreviewProps = {
     colorValue: string;
     colorId: string;
-    uniqueId: string;
-    displayColors: string[];
+    uniqueId: number;
+    displayColors: ColorInfo[];
     onChangeColor: (color: string) => void;
     onChangeId: (id: string) => void;
     lightBackgroundColor: string;
@@ -38,16 +38,26 @@ export const ColorPalettePreview = ({
                 onChangeColor={onChangeColor}
                 onChangeId={onChangeId}
             />
-            <div className={css({ display: "flex", gap: "4", flexWrap: "wrap", height: "100%", paddingTop: "0.5rem" })}>
-                {displayColors.map((color, index) => (
-                    <ColorContrastBox
-                        key={`${uniqueId}-${index}`}
-                        index={index}
-                        targetColor={color}
-                        lightBackgroundColor={lightBackgroundColor}
-                        darkBackgroundColor={darkBackgroundColor}
-                    />
-                ))}
+            <div
+                className={css({
+                    display: "flex",
+                    gap: "0.5rem",
+                    flexWrap: "wrap",
+                    height: "100%",
+                    paddingTop: "0.5rem",
+                })}
+            >
+                {displayColors.map((color, index) => {
+                    return (
+                        <ColorContrastBox
+                            key={`${uniqueId}-${index}`}
+                            index={index}
+                            targetColor={color}
+                            lightBackgroundColor={lightBackgroundColor}
+                            darkBackgroundColor={darkBackgroundColor}
+                        />
+                    );
+                })}
             </div>
         </HStack>
     );
