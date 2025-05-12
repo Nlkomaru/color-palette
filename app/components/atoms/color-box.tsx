@@ -1,5 +1,5 @@
 import { HoverCard } from "@chakra-ui/react";
-import type { ColorInfo } from "app/type/type";
+import type { ColorInfo } from "../../types/type";
 import { clampChroma, parse } from "culori";
 import { css } from "styled-system/css";
 

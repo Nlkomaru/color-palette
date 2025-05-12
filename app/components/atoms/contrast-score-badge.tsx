@@ -1,6 +1,7 @@
 import { Badge } from "@chakra-ui/react";
-import { converter, wcagContrast } from "culori";
+import { clampChroma, converter, parse } from "culori";
 import { css } from "../../../styled-system/css";
+import { APCAcontrast, sRGBtoY } from "apca-w3";
 
 type ContrastScoreBadgeProps = {
     targetColor: string;
@@ -9,13 +10,20 @@ type ContrastScoreBadgeProps = {
 
 // 色を解析して16進数に変換
 const rgb = converter("rgb");
+const oklch = converter("oklch");
 // 事前に white と black のRGB値を計算
 const whiteRgb = rgb("white");
 const blackRgb = rgb("black");
 
 export const ContrastScoreBadge = ({ targetColor, baseColor }: ContrastScoreBadgeProps) => {
-    const targetColorRgb = rgb(targetColor);
-    const baseColorRgb = rgb(baseColor);
+
+    const targetColorOklch = oklch(parse(targetColor)!!);
+    const clampedTargetColorOklch = clampChroma(targetColorOklch, "oklch")!!;
+    const targetColorRgb = rgb(clampedTargetColorOklch);
+    
+    const baseColorOklch = oklch(parse(baseColor)!!);
+    const clampedBaseColorOklch = clampChroma(baseColorOklch, "oklch")!!;
+    const baseColorRgb = rgb(clampedBaseColorOklch);
 
     // whiteRgb と blackRgb も含めてnullチェックを行う
     if (!targetColorRgb || !baseColorRgb || !whiteRgb || !blackRgb) {
@@ -24,13 +32,24 @@ export const ContrastScoreBadge = ({ targetColor, baseColor }: ContrastScoreBadg
         return null;
     }
 
-    const contrastRatio = wcagContrast(targetColorRgb, baseColorRgb);
-    // コントラスト比を小数点第1位まで丸める
-    const decimalPlaces = 2;
-    const contrastScore = Math.round(contrastRatio * 10 ** decimalPlaces) / 10 ** decimalPlaces;
+    // RGB値を0-1の範囲に正規化
+    const targetY = sRGBtoY([
+        targetColorRgb.r * 255,
+        targetColorRgb.g * 255,
+        targetColorRgb.b * 255
+    ]) || 0;
 
-    // ! を使わずに textColor を計算
-    const textColor = wcagContrast(baseColorRgb, whiteRgb) > wcagContrast(baseColorRgb, blackRgb) ? "white" : "black";
+    const baseY = sRGBtoY([
+        baseColorRgb.r * 255,
+        baseColorRgb.g * 255,
+        baseColorRgb.b * 255
+    ]) ?? 0;
+
+    // APCAのコントラストスコアを計算（text, background順）
+    const contrastScore = APCAcontrast(targetY, baseY);
+
+    // テキストの色を決定（APCAのスコアに基づいて）
+    const textColor = contrastScore >= 0 ? "black" : "white";
 
     return (
         <Badge
@@ -47,11 +66,11 @@ export const ContrastScoreBadge = ({ targetColor, baseColor }: ContrastScoreBadg
             style={
                 {
                     backgroundColor: baseColor,
-                    color: textColor, // 計算済みの textColor を使用
+                    color: targetColor,
                 } as React.CSSProperties
             }
         >
-            {contrastScore}:1
+            {contrastScore.toFixed(1)}
         </Badge>
     );
 };

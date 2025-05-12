@@ -1,6 +1,6 @@
 "use client";
 
-import type { LightnessMode } from "app/type/type";
+import type { LightnessMode } from "../types/type";
 import { useQueryState } from "nuqs";
 
 type ColorPalette = {
@@ -41,6 +41,12 @@ export function useColorPaletteState() {
         serialize: (value) => value,
     });
 
+    const [gain, setGain] = useQueryState("gain", {
+        defaultValue: 1,
+        parse: (value) => Number.parseFloat(value),
+        serialize: (value) => String(value),
+    });
+
     const lastUniqueId = colors.at(-1)?.uniqueId ?? 1;
 
     const addColorPalette = () => {
@@ -72,6 +78,8 @@ export function useColorPaletteState() {
         setLength,
         mode,
         setMode,
+        gain,
+        setGain,
         addColorPalette,
         removeColorPalette,
         updateColorValue,

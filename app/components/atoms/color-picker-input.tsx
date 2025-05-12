@@ -1,5 +1,4 @@
 import { ColorPicker, parseColor } from "@chakra-ui/react";
-import { converter } from "culori";
 // カラー状態をグローバルに管理するためのatomを定義
 // 初期値は空文字列に設定
 
@@ -16,7 +15,9 @@ export function ColorPickerInput({ color, onChangeColor }: ColorPickerInputProps
                 onChangeColor(e.valueAsString);
             }}
         >
-            <ColorPicker.Label color="black" htmlFor="color-picker-input">Color</ColorPicker.Label>
+            <ColorPicker.Label color="black" htmlFor="color-picker-input">
+                Color
+            </ColorPicker.Label>
             <ColorPicker.Control>
                 <ColorPicker.Input />
                 <ColorPicker.Trigger />

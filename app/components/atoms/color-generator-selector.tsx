@@ -1,7 +1,7 @@
 "use client";
 
 import { Select, createListCollection } from "@chakra-ui/react";
-import type { LightnessMode } from "app/type/type";
+import type { LightnessMode } from "../../types/type";
 import { css } from "styled-system/css";
 
 type ColorGeneratorSelectorProps = {

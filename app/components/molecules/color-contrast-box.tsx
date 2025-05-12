@@ -1,4 +1,4 @@
-import type { ColorInfo } from "app/type/type";
+import type { ColorInfo } from "../../types/type";
 import { type Oklch, clampChroma, converter, parse } from "culori";
 import { css } from "../../../styled-system/css";
 import { VStack } from "../../../styled-system/jsx";
