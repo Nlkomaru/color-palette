@@ -1,4 +1,4 @@
-import type { ColorInfo } from "app/type/type";
+import type { ColorInfo } from "../../types/type";
 import { HStack } from "styled-system/jsx";
 import { css } from "../../../styled-system/css";
 import { ColorContrastBox } from "../molecules/color-contrast-box";
@@ -50,6 +50,7 @@ export const ColorPalettePreview = ({
                 {displayColors.map((color, index) => {
                     return (
                         <ColorContrastBox
+                            //biome-ignore lint/suspicious/noArrayIndexKey: <explanation>
                             key={`${uniqueId}-${index}`}
                             index={index}
                             targetColor={color}

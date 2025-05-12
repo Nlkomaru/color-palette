@@ -1,5 +1,6 @@
 import { Outlet } from "react-router";
 import { css } from "../../styled-system/css";
+import { Footer } from "../components/organisms/footer";
 import { Header } from "../components/organisms/header";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
@@ -15,6 +16,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
             >
                 <Outlet />
             </div>
+            <Footer />
         </div>
     );
 }

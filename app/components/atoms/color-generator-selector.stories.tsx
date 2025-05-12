@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import type { LightnessMode } from "app/type/type";
+import type { LightnessMode } from "../../types/type";
 import { ColorGeneratorSelector } from "./color-generator-selector";
 
 const meta: Meta<typeof ColorGeneratorSelector> = {

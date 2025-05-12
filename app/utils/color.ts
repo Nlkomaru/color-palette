@@ -1,4 +1,4 @@
-import type { ColorInfo } from "app/type/type";
+import type { ColorInfo } from "../types/type";
 import { clampChroma, converter, parse } from "culori";
 
 const oklch = converter("oklch");
@@ -59,7 +59,7 @@ export function getColorChannels(color: string, lightness: number[]): string[] {
     const colorChannels: string[] = [];
     for (let i = 0; i < lightness.length; i++) {
         const lightnessValue = lightness[i];
-        const colorChannel = `oklch(${lightnessValue} ${clampedColor.c} ${clampedColor.h} / ${clampedColor.alpha ?? 1})`;
+        const colorChannel = `oklch(${lightnessValue} ${clampedColor.c} ${clampedColor.h ?? 0} / ${clampedColor.alpha ?? 1})`;
         colorChannels.push(colorChannel);
     }
     return colorChannels;
