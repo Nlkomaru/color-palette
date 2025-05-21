@@ -1,23 +1,25 @@
-"use client ";
+"use client";
 import { HStack, Slider } from "@chakra-ui/react";
 import { css } from "../../../styled-system/css";
 
-type ColorLengthSliderProps = {
-    length: number;
-    onChangeLength: (length: number) => void;
+type LightnessGainSliderProps = {
+    gain: number;
+    onChangeGain: (gain: number) => void;
 };
 
-export const ColorLengthSlider = ({ length, onChangeLength }: ColorLengthSliderProps) => {
+export const LightnessGainSlider = ({ gain, onChangeGain }: LightnessGainSliderProps) => {
     return (
         <Slider.Root
             className={css({ w: "12rem" })}
             size="md"
-            defaultValue={[length]}
-            onValueChange={(e) => onChangeLength(e.value[0])}
-            max={20}
+            defaultValue={[gain]}
+            onValueChange={(e) => onChangeGain(e.value[0])}
+            max={10}
+            step={0.05}
+            min={0}
         >
             <HStack justify="space-between">
-                <Slider.Label>Length</Slider.Label>
+                <Slider.Label>Gain</Slider.Label>
                 <Slider.ValueText />
             </HStack>
             <Slider.Control>

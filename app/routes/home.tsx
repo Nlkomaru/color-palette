@@ -2,20 +2,21 @@ import { ColorPalettePreview } from "~/components/organisms/color-palette-previe
 import { getColorChannels, getColorInfo } from "~/utils/color";
 import { getLightness } from "~/utils/lightness";
 import { VStack } from "../../styled-system/jsx";
+import { LightnessChart } from "../components/organisms/lightness-chart";
 import { Setting } from "../components/organisms/setting";
 import { useColorPaletteState } from "../hooks/useColorPaletteState";
 import type { Route } from "./+types/home";
 
 export default function Home({ loaderData }: Route.ComponentProps) {
-    const { colors, updateColorValue, updateColorId, length, mode } = useColorPaletteState();
-    
+    const { colors, updateColorValue, updateColorId, length, mode, gain } = useColorPaletteState();
 
     return (
-        <div>
+        <VStack gap="4rem" alignItems="flex-start">
             <Setting />
+            <LightnessChart data={getLightness(length, mode, gain)} />
             <VStack gap="4rem" alignItems="flex-start">
                 {colors.map(({ colorValue: color, colorId: id, uniqueId }) => {
-                    const lightness = getLightness(length, mode);
+                    const lightness = getLightness(length, mode, gain);
                     const displayColors = getColorChannels(color, lightness).map((color) => getColorInfo(color));
                     return (
                         <ColorPalettePreview
@@ -32,7 +33,7 @@ export default function Home({ loaderData }: Route.ComponentProps) {
                     );
                 })}
             </VStack>
-        </div>
+        </VStack>
     );
 }
 
