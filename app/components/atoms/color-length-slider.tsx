@@ -10,7 +10,7 @@ type ColorLengthSliderProps = {
 export const ColorLengthSlider = ({ length, onChangeLength }: ColorLengthSliderProps) => {
     return (
         <Slider.Root
-            className={css({ w: "12rem" })}
+            className={css({ w: "10rem" })}
             size="md"
             defaultValue={[length]}
             onValueChange={(e) => onChangeLength(e.value[0])}

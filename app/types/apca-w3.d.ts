@@ -5,6 +5,6 @@ declare module 'apca-w3' {
     ): number;
 
     export function sRGBtoY(
-        rgb: [number, number, number]
+        rgba: number[]
     ): number | null | NaN | undefined;
 } 

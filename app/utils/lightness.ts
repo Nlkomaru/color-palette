@@ -1,5 +1,8 @@
 import type { LightnessMode } from "../types/type";
 
+const MAX_LIGHTNESS = 0.95;
+const MIN_LIGHTNESS = 0.20;
+
 export function getLightness(length: number, mode: LightnessMode, gain: number): number[] {
     switch (mode) {
         case "constant":
@@ -16,33 +19,32 @@ function constantLightness(length: number) {
 }
 
 function linearLightness(length: number) {
-    const min = 0.05;
-    const max = 0.9;
-    const step = (max - min) / (length - 1);
-    return Array.from({ length }, (_, i) => min + i * step);
+    const step = (MAX_LIGHTNESS - MIN_LIGHTNESS) / (length - 1);
+    // MAX_LIGHTNESSからMIN_LIGHTNESSまで等間隔で減少する配列を生成
+    return Array.from({ length }, (_, i) => MAX_LIGHTNESS - i * step);
 }
-export const sigmoidLightness = (length: number, gain: number): number[] => {
-    const sigmoid = (x: number): number => {
-        const k = 10; // x軸の範囲（0〜10）に対応するスケーリングファクター
-        // gainの値を調整して、sigmoid関数の勾配を調整する
-        const adjustedGain = gain * 0.5; // gainの値を調整して、sigmoid関数の勾配を調整する
-        const rawSigmoid = 1 / (1 + Math.exp(-adjustedGain * (x - k / 2)));
 
-        // 値を 0.1 ~ 1 にスケーリングする
-        return 0.1 + 0.9 * rawSigmoid;
+export const sigmoidLightness = (length: number, gain: number): number[] => {
+    // シグモイド関数を定義
+    const sigmoid = (x: number): number => {
+        const k = 10; // x軸の範囲（0〜10）を表すスケーリングファクター
+        const adjustedGain = gain * 0.5; // gainを調整してシグモイドの勾配を調整
+        const rawSigmoid = 1 / (1 + Math.exp(-adjustedGain * (x - k / 2))); // 0〜1のシグモイド値
+        // 逆向きにするために (1 - rawSigmoid) を使い、MIN_LIGHTNESS〜MAX_LIGHTNESS の範囲にスケーリング
+        return MIN_LIGHTNESS + (MAX_LIGHTNESS - MIN_LIGHTNESS) * (1 - rawSigmoid);
     };
 
-    const generateSigmoidData = (steps: number): { x: number; y: number }[] => {
+    // 指定したステップ数でシグモイドデータを生成
+    const generateSigmoidData = (steps: number): number[] => {
         const start = 0;
         const end = 10;
         const stepSize = (end - start) / (steps - 1);
         return Array.from({ length: steps }, (_, i) => {
             const x = start + i * stepSize;
-            const y = sigmoid(x);
-            return { x, y };
+            return sigmoid(x);
         });
     };
 
-    const data = generateSigmoidData(length);
-    return data.map(({ y }) => y);
+    // 生成した配列をそのまま返却
+    return generateSigmoidData(length);
 };
