@@ -7,4 +7,9 @@ declare module 'apca-w3' {
     export function sRGBtoY(
         rgba: number[]
     ): number | null | NaN | undefined;
+
+    export function alphaBlend(
+        rgba1: number[],
+        rgba2: number[]
+    ): number[];
 } 

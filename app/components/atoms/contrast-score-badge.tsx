@@ -1,8 +1,8 @@
 import { Badge } from "@chakra-ui/react";
 import { clampChroma, converter, parse } from "culori";
 import { css } from "../../../styled-system/css";
-import { APCAcontrast, sRGBtoY } from "apca-w3";
-
+import { APCAcontrast, sRGBtoY, alphaBlend } from "apca-w3";
+import { colorParsley } from "colorparsley";
 type ContrastScoreBadgeProps = {
     targetColor: string;
     baseColor: string;
@@ -32,11 +32,16 @@ export const ContrastScoreBadge = ({ targetColor, baseColor }: ContrastScoreBadg
         return null;
     }
 
+    const mergedColorRgb = alphaBlend(
+        [targetColorRgb.r * 255, targetColorRgb.g * 255, targetColorRgb.b * 255, targetColorRgb.alpha ?? 1],
+        [baseColorRgb.r * 255, baseColorRgb.g * 255, baseColorRgb.b * 255, baseColorRgb.alpha ?? 1],
+    )
+
     // RGB値を0-1の範囲に正規化
     const targetY = sRGBtoY([
-        targetColorRgb.r * 255,
-        targetColorRgb.g * 255,
-        targetColorRgb.b * 255
+        mergedColorRgb[0],
+        mergedColorRgb[1],
+        mergedColorRgb[2]
     ]) || 0;
 
     const baseY = sRGBtoY([
@@ -49,8 +54,6 @@ export const ContrastScoreBadge = ({ targetColor, baseColor }: ContrastScoreBadg
     const contrastScore = APCAcontrast(targetY, baseY);
 
     // テキストの色を決定（APCAのスコアに基づいて）
-    const textColor = contrastScore >= 0 ? "black" : "white";
-
     return (
         <Badge
             variant="outline"
