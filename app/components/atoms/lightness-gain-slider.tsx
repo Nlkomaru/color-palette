@@ -10,7 +10,7 @@ type LightnessGainSliderProps = {
 export const LightnessGainSlider = ({ gain, onChangeGain }: LightnessGainSliderProps) => {
     return (
         <Slider.Root
-            className={css({ w: "12rem" })}
+            className={css({ w: "10rem" })}
             size="md"
             defaultValue={[gain]}
             onValueChange={(e) => onChangeGain(e.value[0])}

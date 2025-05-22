@@ -36,13 +36,13 @@ export function useColorPaletteState() {
     });
 
     const [mode, setMode] = useQueryState<LightnessMode>("mode", {
-        defaultValue: "linear",
+        defaultValue: "sigmoid",
         parse: (value) => value as LightnessMode,
         serialize: (value) => value,
     });
 
     const [gain, setGain] = useQueryState("gain", {
-        defaultValue: 1,
+        defaultValue: 1.25,
         parse: (value) => Number.parseFloat(value),
         serialize: (value) => String(value),
     });

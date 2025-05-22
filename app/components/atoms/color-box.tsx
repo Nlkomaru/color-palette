@@ -42,6 +42,7 @@ export function ColorBox({ color }: ColorBoxProps) {
                     <p>color: {color.color}</p>
                     <p>fallback: {color.fallback}</p>
                     <p>lightness: {color.lightness}</p>
+                    <p>hex: {color.hex}</p>
                 </HoverCard.Content>
             </HoverCard.Positioner>
         </HoverCard.Root>

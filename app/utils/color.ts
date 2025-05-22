@@ -2,12 +2,13 @@ import type { ColorInfo } from "../types/type";
 import { clampChroma, converter, parse } from "culori";
 
 const oklch = converter("oklch");
-
+const rgb = converter("rgb");
 // parse が失敗した場合にデフォルトの ColorInfo を返すように修正
 const defaultColorInfo: ColorInfo = {
     color: "oklch(0 0 0 / 1)",
     fallback: "oklch(0 0 0 / 1)",
     lightness: 0,
+    hex: "#00000000",
 };
 
 export function getColorInfo(color: string): ColorInfo {
@@ -31,11 +32,18 @@ export function getColorInfo(color: string): ColorInfo {
         console.warn(`[getColorInfo] Failed to clamp chroma for color: ${color}. Falling back to default.`);
         return defaultColorInfo;
     }
+    const clampedRgb = rgb(clampedColor);
+    const r = Math.round(clampedRgb.r * 255).toString(16).padStart(2, '0');
+    const g = Math.round(clampedRgb.g * 255).toString(16).padStart(2, '0');
+    const b = Math.round(clampedRgb.b * 255).toString(16).padStart(2, '0');
+    const a = Math.round((clampedRgb.alpha ?? 1) * 255).toString(16).padStart(2, '0');
+    const hex = `#${r}${g}${b}${a}`;
 
     return {
         color: `oklch(${oklchColor.l.toFixed(2)} ${oklchColor.c.toFixed(2)} ${oklchColor.h?.toFixed(2) ?? 0} / ${oklchColor.alpha?.toFixed(2) ?? 1})`,
         fallback: `oklch(${clampedColor.l.toFixed(2)} ${clampedColor.c.toFixed(2)} ${clampedColor.h?.toFixed(2) ?? 0} / ${clampedColor.alpha?.toFixed(2) ?? 1})`,
         lightness: Number(oklchColor.l.toFixed(2)),
+        hex: hex,
     };
 }
 
