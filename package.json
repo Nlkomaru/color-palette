@@ -28,6 +28,7 @@
         "@storybook/addon-themes": "^8.6.12",
         "apca-w3": "^0.1.9",
         "autoprefixer": "^10.4.21",
+        "colorparsley": "^0.1.8",
         "culori": "^4.0.1",
         "isbot": "^5.1.27",
         "markdown-to-jsx": "^7.7.6",
