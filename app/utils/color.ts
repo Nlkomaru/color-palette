@@ -1,5 +1,5 @@
 import type { ColorInfo } from "../types/type";
-import { clampChroma, converter, parse } from "culori";
+import { clampChroma, converter, parse, differenceCiede2000 } from "culori";
 
 const oklch = converter("oklch");
 const rgb = converter("rgb");

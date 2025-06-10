@@ -4,7 +4,8 @@ import { css } from "../../../styled-system/css";
 import { ColorContrastBox } from "../molecules/color-contrast-box";
 import { ColorDisplay } from "../molecules/color-display";
 import { Button } from "@chakra-ui/react";
-import { TrashIcon, PlusIcon } from "lucide-react";
+import { TrashIcon } from "lucide-react";
+import { NewColor } from "../atoms/newColor";
 
 export type ColorPalettePreviewProps = {
     colorValue: string;
@@ -41,7 +42,6 @@ export const ColorPalettePreview = ({
 }: ColorPalettePreviewProps) => {
     return (
         <HStack gap="8" alignItems="flex-start" height="9rem">
-            
             <ColorDisplay
                 colorId={colorId}
                 colorValue={colorValue}
@@ -94,31 +94,7 @@ export const ColorPalettePreview = ({
                 >
                     <TrashIcon size={28} />
                 </Button>
-                {isLast && (
-                    <Button
-                        variant="ghost"
-                        colorPalette="green"
-                        size="sm"
-                        height="36px"
-                        width="36px"
-                        borderRadius="full"
-                        onClick={() => {
-                            onCreate();
-                        }}
-                        className={css({
-                            transition: "all 0.2s ease-in-out",
-                            _hover: {
-                                transform: "scale(1.1)",
-                                backgroundColor: "green.100",
-                            },
-                            _active: {
-                                transform: "scale(0.95)",
-                            },
-                        })}
-                    >
-                        <PlusIcon size={28} />
-                    </Button>
-                )}
+                <NewColor onChangeColor={onChangeColor} uniqueId={uniqueId} onCreate={onCreate} isLast={isLast ?? false} />
             </VStack>
         </HStack>
     );

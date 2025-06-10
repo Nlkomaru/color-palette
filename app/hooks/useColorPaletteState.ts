@@ -55,10 +55,9 @@ export function useColorPaletteState() {
         // (現状の実装では length がパレットの数ではなく、生成色の数を意味しているため、
         //  必ずしもインクリメントする必要はないかもしれない。要件に応じて調整が必要)
         const newUniqueId = lastUniqueId + 1;
-        const colorNames = Object.keys(colorsNamed);
+        const colorNames = Object.keys(colorsNamed)
         const randomColor = colorNames[Math.floor(Math.random() * colorNames.length)];
         const randomColorValue = formatHex(randomColor) ?? "#000000";
-
         setColors([...colors, { colorValue: randomColorValue, colorId: randomColor, uniqueId: newUniqueId }]);
         // setLength(length + 1); // 必要に応じてコメントアウトを解除または修正
     };
