@@ -77,10 +77,6 @@ export function useColorPaletteState() {
         setColors(colors.map((c) => (c.uniqueId === uniqueId ? { ...c, colorId: newId } : c)));
     };
 
-    const removeColor = (uniqueId: number) => {
-        setColors(colors.filter(({ uniqueId: id }) => id !== uniqueId));
-    };
-
     return {
         colors,
         length,
@@ -89,10 +85,9 @@ export function useColorPaletteState() {
         setMode,
         gain,
         setGain,
-        removeColorPalette,
-        updateColorValue,
-        updateColorId,
-        removeColor,
         addColorPalette,
+        removeColorPalette,
+        updateColorId,
+        updateColorValue,
     };
 }

@@ -8,7 +8,7 @@ import { useColorPaletteState } from "../hooks/useColorPaletteState";
 import type { Route } from "./+types/home";
 
 export default function Home({ loaderData }: Route.ComponentProps) {
-    const { colors, updateColorValue, updateColorId, length, mode, gain, removeColor, addColorPalette } = useColorPaletteState();
+    const { colors, updateColorValue, updateColorId, length, mode, gain, removeColorPalette , addColorPalette } = useColorPaletteState();
 
     return (
         <VStack gap="4rem" alignItems="flex-start">
@@ -30,7 +30,7 @@ export default function Home({ loaderData }: Route.ComponentProps) {
                             lightBackgroundColor="#ffffff"
                             darkBackgroundColor="#000000"
                             onRemove={() => {
-                                removeColor(uniqueId);
+                                removeColorPalette(uniqueId);
                             }}
                             onCreate={() => {
                                 addColorPalette();
