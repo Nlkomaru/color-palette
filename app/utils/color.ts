@@ -1,5 +1,5 @@
 import type { ColorInfo } from "../types/type";
-import { clampChroma, converter, parse } from "culori";
+import { clampChroma, converter, parse, formatHex } from "culori";
 
 const oklch = converter("oklch");
 const rgb = converter("rgb");
@@ -33,11 +33,7 @@ export function getColorInfo(color: string): ColorInfo {
         return defaultColorInfo;
     }
     const clampedRgb = rgb(clampedColor);
-    const r = Math.round(clampedRgb.r * 255).toString(16).padStart(2, '0');
-    const g = Math.round(clampedRgb.g * 255).toString(16).padStart(2, '0');
-    const b = Math.round(clampedRgb.b * 255).toString(16).padStart(2, '0');
-    const a = Math.round((clampedRgb.alpha ?? 1) * 255).toString(16).padStart(2, '0');
-    const hex = `#${r}${g}${b}${a}`;
+    const hex = formatHex(clampedRgb);
 
     return {
         color: `oklch(${oklchColor.l.toFixed(2)} ${oklchColor.c.toFixed(2)} ${oklchColor.h?.toFixed(2) ?? 0} / ${oklchColor.alpha?.toFixed(2) ?? 1})`,
