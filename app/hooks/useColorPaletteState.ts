@@ -2,6 +2,7 @@
 
 import type { LightnessMode } from "../types/type";
 import { useQueryState } from "nuqs";
+import { colorsNamed, formatHex } from "culori";
 
 type ColorPalette = {
     colorValue: string;
@@ -54,7 +55,11 @@ export function useColorPaletteState() {
         // (現状の実装では length がパレットの数ではなく、生成色の数を意味しているため、
         //  必ずしもインクリメントする必要はないかもしれない。要件に応じて調整が必要)
         const newUniqueId = lastUniqueId + 1;
-        setColors([...colors, { colorValue: "#000000", colorId: String(newUniqueId), uniqueId: newUniqueId }]);
+        const colorNames = Object.keys(colorsNamed);
+        const randomColor = colorNames[Math.floor(Math.random() * colorNames.length)];
+        const randomColorValue = formatHex(randomColor) ?? "#000000";
+
+        setColors([...colors, { colorValue: randomColorValue, colorId: randomColor, uniqueId: newUniqueId }]);
         // setLength(length + 1); // 必要に応じてコメントアウトを解除または修正
     };
 
@@ -72,6 +77,10 @@ export function useColorPaletteState() {
         setColors(colors.map((c) => (c.uniqueId === uniqueId ? { ...c, colorId: newId } : c)));
     };
 
+    const removeColor = (uniqueId: number) => {
+        setColors(colors.filter(({ uniqueId: id }) => id !== uniqueId));
+    };
+
     return {
         colors,
         length,
@@ -80,9 +89,10 @@ export function useColorPaletteState() {
         setMode,
         gain,
         setGain,
-        addColorPalette,
         removeColorPalette,
         updateColorValue,
         updateColorId,
+        removeColor,
+        addColorPalette,
     };
 }

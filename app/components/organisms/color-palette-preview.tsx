@@ -1,8 +1,11 @@
 import type { ColorInfo } from "../../types/type";
-import { HStack } from "styled-system/jsx";
+import { HStack, VStack } from "styled-system/jsx";
 import { css } from "../../../styled-system/css";
 import { ColorContrastBox } from "../molecules/color-contrast-box";
 import { ColorDisplay } from "../molecules/color-display";
+import { Button } from "@chakra-ui/react";
+import { TrashIcon, PlusIcon } from "lucide-react";
+
 export type ColorPalettePreviewProps = {
     colorValue: string;
     colorId: string;
@@ -12,6 +15,9 @@ export type ColorPalettePreviewProps = {
     onChangeId: (id: string) => void;
     lightBackgroundColor: string;
     darkBackgroundColor: string;
+    onRemove: () => void;
+    onCreate: () => void;
+    isLast?: boolean;
 };
 
 /**
@@ -29,9 +35,13 @@ export const ColorPalettePreview = ({
     darkBackgroundColor,
     onChangeColor,
     onChangeId,
+    onRemove,
+    onCreate,
+    isLast,
 }: ColorPalettePreviewProps) => {
     return (
         <HStack gap="8" alignItems="flex-start" height="9rem">
+            
             <ColorDisplay
                 colorId={colorId}
                 colorValue={colorValue}
@@ -60,6 +70,56 @@ export const ColorPalettePreview = ({
                     );
                 })}
             </div>
+            <VStack gap="3" alignSelf="flex-end">
+                <Button
+                    variant="ghost"
+                    colorPalette="red"
+                    size="sm"
+                    height="36px"
+                    width="36px"
+                    borderRadius="full"
+                    onClick={() => {
+                        onRemove();
+                    }}
+                    className={css({
+                        transition: "all 0.2s ease-in-out",
+                        _hover: {
+                            transform: "scale(1.1)",
+                            backgroundColor: "red.100",
+                        },
+                        _active: {
+                            transform: "scale(0.95)",
+                        },
+                    })}
+                >
+                    <TrashIcon size={28} />
+                </Button>
+                {isLast && (
+                    <Button
+                        variant="ghost"
+                        colorPalette="green"
+                        size="sm"
+                        height="36px"
+                        width="36px"
+                        borderRadius="full"
+                        onClick={() => {
+                            onCreate();
+                        }}
+                        className={css({
+                            transition: "all 0.2s ease-in-out",
+                            _hover: {
+                                transform: "scale(1.1)",
+                                backgroundColor: "green.100",
+                            },
+                            _active: {
+                                transform: "scale(0.95)",
+                            },
+                        })}
+                    >
+                        <PlusIcon size={28} />
+                    </Button>
+                )}
+            </VStack>
         </HStack>
     );
 };

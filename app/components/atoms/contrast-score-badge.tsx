@@ -2,7 +2,6 @@ import { Badge } from "@chakra-ui/react";
 import { clampChroma, converter, parse } from "culori";
 import { css } from "../../../styled-system/css";
 import { APCAcontrast, sRGBtoY, alphaBlend } from "apca-w3";
-import { colorParsley } from "colorparsley";
 type ContrastScoreBadgeProps = {
     targetColor: string;
     baseColor: string;
