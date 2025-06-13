@@ -1,19 +1,17 @@
 "use client";
 import { HStack, Slider } from "@chakra-ui/react";
+import { useAtom } from "jotai";
 import { css } from "../../../styled-system/css";
+import { gainAtom } from "../../atoms/colorPaletteAtoms";
 
-type LightnessGainSliderProps = {
-    gain: number;
-    onChangeGain: (gain: number) => void;
-};
-
-export const LightnessGainSlider = ({ gain, onChangeGain }: LightnessGainSliderProps) => {
+export const LightnessGainSlider = () => {
+    const [gain, setGain] = useAtom(gainAtom);
     return (
         <Slider.Root
             className={css({ w: "10rem" })}
             size="md"
             defaultValue={[gain]}
-            onValueChange={(e) => onChangeGain(e.value[0])}
+            onValueChange={(e) => setGain(e.value[0])}
             max={10}
             step={0.05}
             min={0}

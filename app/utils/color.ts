@@ -1,5 +1,5 @@
+import { clampChroma, converter, formatHex, parse } from "culori";
 import type { ColorInfo } from "../types/type";
-import { clampChroma, converter, parse, formatHex } from "culori";
 
 const oklch = converter("oklch");
 const rgb = converter("rgb");

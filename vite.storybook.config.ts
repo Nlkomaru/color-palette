@@ -13,5 +13,17 @@ export default defineConfig(({ mode }): UserConfig => {
             },
         },
         plugins: [tsconfigPaths()],
+        build: {
+            sourcemap: false, // ソースマップ警告を回避
+            rollupOptions: {
+                onwarn(warning, warn) {
+                    // "use client"ディレクティブの警告を抑制
+                    if (warning.code === "MODULE_LEVEL_DIRECTIVE") {
+                        return;
+                    }
+                    warn(warning);
+                },
+            },
+        },
     };
 });

@@ -1,7 +1,7 @@
 import type { LightnessMode } from "../types/type";
 
 const MAX_LIGHTNESS = 0.95;
-const MIN_LIGHTNESS = 0.20;
+const MIN_LIGHTNESS = 0.2;
 
 export function getLightness(length: number, mode: LightnessMode, gain: number): number[] {
     switch (mode) {

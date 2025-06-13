@@ -1,19 +1,17 @@
-"use client ";
+"use client";
 import { HStack, Slider } from "@chakra-ui/react";
+import { useAtom } from "jotai";
 import { css } from "../../../styled-system/css";
+import { lengthAtom } from "../../atoms/colorPaletteAtoms";
 
-type ColorLengthSliderProps = {
-    length: number;
-    onChangeLength: (length: number) => void;
-};
-
-export const ColorLengthSlider = ({ length, onChangeLength }: ColorLengthSliderProps) => {
+export const ColorLengthSlider = () => {
+    const [length, setLength] = useAtom(lengthAtom);
     return (
         <Slider.Root
             className={css({ w: "10rem" })}
             size="md"
             defaultValue={[length]}
-            onValueChange={(e) => onChangeLength(e.value[0])}
+            onValueChange={(e) => setLength(e.value[0])}
             max={20}
         >
             <HStack justify="space-between">

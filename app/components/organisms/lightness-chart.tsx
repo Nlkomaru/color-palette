@@ -1,18 +1,10 @@
-"use client"
-import {
-    CartesianGrid,
-    LabelList,
-    Line,
-    LineChart,
-    Tooltip,
-    XAxis,
-    YAxis,
-} from "recharts"
-import { Chart, useChart } from "@chakra-ui/charts"
+"use client";
+import { Chart, useChart } from "@chakra-ui/charts";
+import { CartesianGrid, Line, LineChart, Tooltip, XAxis, YAxis } from "recharts";
 
 type LightnessChartProps = {
-    data: number[]
-}
+    data: number[];
+};
 
 export const LightnessChart = ({ data }: LightnessChartProps) => {
     const chart = useChart({
@@ -24,11 +16,7 @@ export const LightnessChart = ({ data }: LightnessChartProps) => {
     return (
         <Chart.Root maxH="md" chart={chart}>
             <LineChart data={chart.data} margin={{ left: 40, right: 40, top: 40 }}>
-                <CartesianGrid
-                    stroke={chart.color("border")}
-                    strokeDasharray="3 3"
-                    horizontal={false}
-                />
+                <CartesianGrid stroke={chart.color("border")} strokeDasharray="3 3" horizontal={false} />
                 <YAxis
                     axisLine={false}
                     tickLine={false}
@@ -55,5 +43,5 @@ export const LightnessChart = ({ data }: LightnessChartProps) => {
                 />
             </LineChart>
         </Chart.Root>
-    )
+    );
 };

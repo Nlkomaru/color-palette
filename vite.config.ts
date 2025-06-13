@@ -17,4 +17,7 @@ export default defineConfig({
             usePolling: true,
         },
     },
+    build: {
+        sourcemap: false, // ソースマップ警告を回避
+    },
 });
