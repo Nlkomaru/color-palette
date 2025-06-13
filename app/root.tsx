@@ -1,5 +1,5 @@
+import { Provider as JotaiProvider } from "jotai";
 import { ThemeProvider } from "next-themes";
-import { NuqsAdapter } from "nuqs/adapters/react-router/v7";
 import {
     Links,
     type LinksFunction,
@@ -43,9 +43,9 @@ export default function App() {
             }}
         >
             <Provider>
-                <NuqsAdapter>
+                <JotaiProvider>
                     <Outlet />
-                </NuqsAdapter>
+                </JotaiProvider>
             </Provider>
         </ThemeProvider>
     );

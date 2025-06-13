@@ -1,16 +1,35 @@
 import { Button } from "@chakra-ui/react";
-import { Dice1, PlusIcon } from "lucide-react";
-import { css } from "../../../styled-system/css";
 import { colorsNamed, formatHex } from "culori";
+import { useSetAtom } from "jotai";
+import { Dice6, PlusIcon } from "lucide-react";
+import { css } from "../../../styled-system/css";
+import { addColorPaletteAtom, updateColorIdAtom, updateColorValueAtom } from "../../atoms/colorPaletteAtoms";
 
 type NewColorProps = {
-    onCreate: () => void;
     isLast: boolean;
     uniqueId: number;
-    onChangeColor: (color: string) => void;
 };
 
-export const NewColor = ({ onCreate, isLast, uniqueId, onChangeColor }: NewColorProps) => {
+export const NewColor = ({ isLast, uniqueId }: NewColorProps) => {
+    // Jotaiのアクションを取得
+    const addColorPalette = useSetAtom(addColorPaletteAtom);
+    const updateColorValue = useSetAtom(updateColorValueAtom);
+    const updateColorId = useSetAtom(updateColorIdAtom);
+
+    // ハンドラ関数を定義
+    const handleCreate = () => {
+        addColorPalette();
+    };
+
+    const handleRandomColor = () => {
+        const colorNames = Object.keys(colorsNamed);
+        const randomColorName = colorNames[Math.floor(Math.random() * colorNames.length)];
+        const randomColorValue = formatHex(randomColorName) ?? "#000000";
+
+        // Color IDとColor Valueの両方を更新
+        updateColorId(uniqueId, randomColorName);
+        updateColorValue(uniqueId, randomColorValue);
+    };
     return isLast ? (
         <Button
             variant="ghost"
@@ -19,9 +38,7 @@ export const NewColor = ({ onCreate, isLast, uniqueId, onChangeColor }: NewColor
             height="36px"
             width="36px"
             borderRadius="full"
-            onClick={() => {
-                onCreate();
-            }}
+            onClick={handleCreate}
             className={css({
                 transition: "all 0.2s ease-in-out",
                 _hover: {
@@ -43,10 +60,7 @@ export const NewColor = ({ onCreate, isLast, uniqueId, onChangeColor }: NewColor
             height="36px"
             width="36px"
             borderRadius="full"
-            onClick={() => {
-                const randomColor = Object.keys(colorsNamed)[Math.floor(Math.random() * Object.keys(colorsNamed).length)];
-                onChangeColor(formatHex(randomColor) ?? "#000000");
-            }}
+            onClick={handleRandomColor}
             className={css({
                 transition: "all 0.2s ease-in-out",
                 _hover: {
@@ -58,7 +72,7 @@ export const NewColor = ({ onCreate, isLast, uniqueId, onChangeColor }: NewColor
                 },
             })}
         >
-            <Dice1 size={28} />
+            <Dice6 size={28} />
         </Button>
-    )
+    );
 };

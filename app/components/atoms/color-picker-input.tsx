@@ -10,7 +10,7 @@ type ColorPickerInputProps = {
 export function ColorPickerInput({ color, onChangeColor }: ColorPickerInputProps) {
     return (
         <ColorPicker.Root
-            defaultValue={parseColor(color)}
+            value={parseColor(color)}
             onValueChange={(e) => {
                 onChangeColor(e.valueAsString);
             }}

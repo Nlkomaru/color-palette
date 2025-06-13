@@ -22,10 +22,6 @@ export const Default: Story = {
         displayColors: getColorChannels("#00368E", getLightness(10, "linear", 1)).map((color) => getColorInfo(color)),
         lightBackgroundColor: "#ffffff",
         darkBackgroundColor: "#000000",
-        onChangeColor: () => {},
-        onChangeId: () => {},
-        onRemove: () => {},
-        onCreate: () => {},
         isLast: false,
     },
 };

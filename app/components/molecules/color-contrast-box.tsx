@@ -1,7 +1,7 @@
-import type { ColorInfo } from "../../types/type";
 import { type Oklch, clampChroma, converter, parse } from "culori";
 import { css } from "../../../styled-system/css";
 import { VStack } from "../../../styled-system/jsx";
+import type { ColorInfo } from "../../types/type";
 import { ColorBox } from "../atoms/color-box";
 import { ContrastScoreBadge } from "../atoms/contrast-score-badge";
 type ColorContrastBoxProps = {

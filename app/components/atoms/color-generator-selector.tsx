@@ -1,16 +1,19 @@
 "use client";
 
 import { Select, createListCollection } from "@chakra-ui/react";
-import type { LightnessMode } from "../../types/type";
+import { useAtom } from "jotai";
 import { css } from "styled-system/css";
+import { modeAtom } from "../../atoms/colorPaletteAtoms";
+import type { LightnessMode } from "../../types/type";
 
-type ColorGeneratorSelectorProps = {
-    value: LightnessMode;
-    onChange: (value: LightnessMode) => void;
-    items: { value: LightnessMode; label: string }[];
-};
+const items = [
+    { value: "constant" as LightnessMode, label: "Constant" },
+    { value: "linear" as LightnessMode, label: "Linear" },
+    { value: "sigmoid" as LightnessMode, label: "Sigmoid" },
+];
 
-export const ColorGeneratorSelector = ({ value, onChange, items }: ColorGeneratorSelectorProps) => {
+export const ColorGeneratorSelector = () => {
+    const [mode, setMode] = useAtom(modeAtom);
     // createListCollectionを使用してitemsをラップ
     const collection = createListCollection({ items });
 
@@ -18,8 +21,8 @@ export const ColorGeneratorSelector = ({ value, onChange, items }: ColorGenerato
         <Select.Root
             className={css({ width: "15rem" })}
             collection={collection}
-            value={[value]}
-            onValueChange={(e) => onChange(e.value[0] as LightnessMode)}
+            value={[mode]}
+            onValueChange={(e) => setMode(e.value[0] as LightnessMode)}
         >
             <Select.HiddenSelect />
             <Select.Label color="black">Lightness Mode</Select.Label>
