@@ -1,7 +1,7 @@
 import { HoverCard } from "@chakra-ui/react";
-import type { ColorInfo } from "../../types/type";
 import { clampChroma, parse } from "culori";
 import { css } from "styled-system/css";
+import type { ColorInfo } from "../../types/type";
 
 type ColorBoxProps = {
     color: ColorInfo;

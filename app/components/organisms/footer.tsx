@@ -24,7 +24,11 @@ export function Footer() {
                         fontSize: "sm",
                     })}
                 >
-                    Written by <Link to="https://www.nikomaru.dev" target="_blank" rel="noopener noreferrer">Nikomaru</Link>. No rights reserved.
+                    Written by{" "}
+                    <Link to="https://www.nikomaru.dev" target="_blank" rel="noopener noreferrer">
+                        Nikomaru
+                    </Link>
+                    . No rights reserved.
                 </p>
             </div>
         </footer>

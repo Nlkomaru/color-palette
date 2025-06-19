@@ -1,7 +1,7 @@
 import { Badge } from "@chakra-ui/react";
+import { APCAcontrast, alphaBlend, sRGBtoY } from "apca-w3";
 import { clampChroma, converter, parse } from "culori";
 import { css } from "../../../styled-system/css";
-import { APCAcontrast, sRGBtoY, alphaBlend } from "apca-w3";
 type ContrastScoreBadgeProps = {
     targetColor: string;
     baseColor: string;
@@ -15,13 +15,30 @@ const whiteRgb = rgb("white");
 const blackRgb = rgb("black");
 
 export const ContrastScoreBadge = ({ targetColor, baseColor }: ContrastScoreBadgeProps) => {
-
-    const targetColorOklch = oklch(parse(targetColor)!!);
-    const clampedTargetColorOklch = clampChroma(targetColorOklch, "oklch")!!;
+    const parsedTargetColor = parse(targetColor);
+    if (!parsedTargetColor) {
+        console.error("無効なターゲット色が指定されました:", targetColor);
+        return null;
+    }
+    const targetColorOklch = oklch(parsedTargetColor);
+    const clampedTargetColorOklch = clampChroma(targetColorOklch, "oklch");
+    if (!clampedTargetColorOklch) {
+        console.error("色の範囲調整に失敗しました:", targetColor);
+        return null;
+    }
     const targetColorRgb = rgb(clampedTargetColorOklch);
-    
-    const baseColorOklch = oklch(parse(baseColor)!!);
-    const clampedBaseColorOklch = clampChroma(baseColorOklch, "oklch")!!;
+
+    const parsedBaseColor = parse(baseColor);
+    if (!parsedBaseColor) {
+        console.error("無効なベース色が指定されました:", baseColor);
+        return null;
+    }
+    const baseColorOklch = oklch(parsedBaseColor);
+    const clampedBaseColorOklch = clampChroma(baseColorOklch, "oklch");
+    if (!clampedBaseColorOklch) {
+        console.error("色の範囲調整に失敗しました:", baseColor);
+        return null;
+    }
     const baseColorRgb = rgb(clampedBaseColorOklch);
 
     // whiteRgb と blackRgb も含めてnullチェックを行う
@@ -34,20 +51,12 @@ export const ContrastScoreBadge = ({ targetColor, baseColor }: ContrastScoreBadg
     const mergedColorRgb = alphaBlend(
         [targetColorRgb.r * 255, targetColorRgb.g * 255, targetColorRgb.b * 255, targetColorRgb.alpha ?? 1],
         [baseColorRgb.r * 255, baseColorRgb.g * 255, baseColorRgb.b * 255, baseColorRgb.alpha ?? 1],
-    )
+    );
 
     // RGB値を0-1の範囲に正規化
-    const targetY = sRGBtoY([
-        mergedColorRgb[0],
-        mergedColorRgb[1],
-        mergedColorRgb[2]
-    ]) || 0;
+    const targetY = sRGBtoY([mergedColorRgb[0], mergedColorRgb[1], mergedColorRgb[2]]) || 0;
 
-    const baseY = sRGBtoY([
-        baseColorRgb.r * 255,
-        baseColorRgb.g * 255,
-        baseColorRgb.b * 255
-    ]) ?? 0;
+    const baseY = sRGBtoY([baseColorRgb.r * 255, baseColorRgb.g * 255, baseColorRgb.b * 255]) ?? 0;
 
     // APCAのコントラストスコアを計算（text, background順）
     const contrastScore = APCAcontrast(targetY, baseY);

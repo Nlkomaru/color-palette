@@ -2,6 +2,7 @@ import "../app/app.css";
 import { withThemeByClassName } from "@storybook/addon-themes";
 import type { Preview } from "@storybook/react";
 import { themes } from "@storybook/theming";
+import { Provider as JotaiProvider } from "jotai";
 import { Provider } from "../app/components/ui/provider";
 
 export const parameters = {
@@ -48,7 +49,9 @@ const preview: Preview = {
     decorators: [
         (Story) => (
             <Provider>
-                <Story />
+                <JotaiProvider>
+                    <Story />
+                </JotaiProvider>
             </Provider>
         ),
         withThemeByClassName({
