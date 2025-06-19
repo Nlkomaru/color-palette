@@ -73,7 +73,7 @@ export const modeAtom = atom(
     (get) => {
         const location = get(locationAtom);
         const modeParam = location.searchParams?.get("mode");
-        return (modeParam as LightnessMode) || "sigmoid";
+        return (modeParam as LightnessMode) || "linear";
     },
     (get, set, newMode: LightnessMode) => {
         const location = get(locationAtom);
