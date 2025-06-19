@@ -26,3 +26,5 @@ playwright-report/
 
 tests/e2e/vrt.spec.ts-snapshots/*
 test-results/
+
+.idea/*
