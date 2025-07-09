@@ -17,7 +17,9 @@ export default function Home({ loaderData }: Route.ComponentProps) {
             <VStack gap="4rem" alignItems="flex-start">
                 {colors.map(({ colorValue: color, colorId: id, uniqueId }) => {
                     const lightness = getLightness(length, mode, gain);
-                    const displayColors = getColorChannels(color, lightness).map((color) => getColorInfo(color));
+                    const displayColors = getColorChannels(color, lightness).map((color, index) =>
+                        getColorInfo(color, lightness[index].index),
+                    );
                     return (
                         <ColorPalettePreview
                             key={uniqueId}

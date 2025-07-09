@@ -44,7 +44,7 @@ export async function downloadColorTokensZip(
         // Build token object lines (100, 200, ...)
         const entries = channels
             .map((ch, i) => {
-                const step = (i + 1) * 100;
+                const step = lightnessArr[i].index;
                 return `        ${step}: { value: "${ch}" },`;
             })
             .join("\n");

@@ -9,9 +9,10 @@ const defaultColorInfo: ColorInfo = {
     fallback: "oklch(0 0 0 / 1)",
     lightness: 0,
     hex: "#00000000",
+    index: 0,
 };
 
-export function getColorInfo(color: string): ColorInfo {
+export function getColorInfo(color: string, index: number): ColorInfo {
     const parsedColor = parse(color);
     // parse が失敗したらデフォルト値を返す
     if (!parsedColor) {
@@ -40,10 +41,11 @@ export function getColorInfo(color: string): ColorInfo {
         fallback: `oklch(${clampedColor.l.toFixed(2)} ${clampedColor.c.toFixed(2)} ${clampedColor.h?.toFixed(2) ?? 0} / ${clampedColor.alpha?.toFixed(2) ?? 1})`,
         lightness: Number(oklchColor.l.toFixed(2)),
         hex: hex,
+        index: index,
     };
 }
 
-export function getColorChannels(color: string, lightness: number[]): string[] {
+export function getColorChannels(color: string, lightness: { index: number; lightness: number }[]): string[] {
     const parsedColor = parse(color);
     if (!parsedColor) {
         console.warn(`[getColorChannels] Invalid color format: ${color}. Falling back to default.`);
@@ -62,7 +64,7 @@ export function getColorChannels(color: string, lightness: number[]): string[] {
 
     const colorChannels: string[] = [];
     for (let i = 0; i < lightness.length; i++) {
-        const lightnessValue = lightness[i];
+        const lightnessValue = lightness[i].lightness;
         const colorChannel = `oklch(${lightnessValue} ${clampedColor.c} ${clampedColor.h ?? 0} / ${clampedColor.alpha ?? 1})`;
         colorChannels.push(colorChannel);
     }

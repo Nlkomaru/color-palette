@@ -86,8 +86,8 @@ export const ColorPalettePreview = ({
                     return (
                         <ColorContrastBox
                             //biome-ignore lint/suspicious/noArrayIndexKey: <explanation>
-                            key={`${uniqueId}-${index}`}
-                            index={index}
+                            key={`${uniqueId}-${color.index}`}
+                            index={color.index}
                             targetColor={color}
                             lightBackgroundColor={lightBackgroundColor}
                             darkBackgroundColor={darkBackgroundColor}

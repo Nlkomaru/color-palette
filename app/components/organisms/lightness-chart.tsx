@@ -3,14 +3,14 @@ import { Chart, useChart } from "@chakra-ui/charts";
 import { CartesianGrid, Line, LineChart, Tooltip, XAxis, YAxis } from "recharts";
 
 type LightnessChartProps = {
-    data: number[];
+    data: { index: number; lightness: number }[];
 };
 
 export const LightnessChart = ({ data }: LightnessChartProps) => {
     const chart = useChart({
-        data: data.map((value, index) => ({
-            name: ((index + 1) * 100).toString(),
-            uv: value.toFixed(3),
+        data: data.map((item) => ({
+            name: item.index.toString(),
+            uv: item.lightness.toFixed(3),
         })),
     });
     return (
