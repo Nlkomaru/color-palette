@@ -33,7 +33,7 @@ export const ColorContrastBox = ({
     return (
         <VStack key={index} alignItems="center" gap="0rem" height="100%" textAlign="center">
             <div className={css({ fontSize: "xs", color: "gray.500", textAlign: "center", width: "100%" })}>
-                {(index + 1) * 100}
+                {index}
             </div>
             <VStack height="100%" justifyContent="space-between" className={css({ height: "100%" })}>
                 {/* 背景色を表示するボックス */}

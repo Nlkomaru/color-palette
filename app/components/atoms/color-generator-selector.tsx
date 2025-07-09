@@ -10,6 +10,7 @@ const items = [
     { value: "constant" as LightnessMode, label: "Constant" },
     { value: "linear" as LightnessMode, label: "Linear" },
     { value: "sigmoid" as LightnessMode, label: "Sigmoid" },
+    { value: "chakra" as LightnessMode, label: "Chakra" },
 ];
 
 export const ColorGeneratorSelector = () => {
