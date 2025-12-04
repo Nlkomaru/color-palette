@@ -6,4 +6,4 @@ export interface ColorInfo {
     index: number; // 色のインデックス ex) 100
 }
 
-export type LightnessMode = "constant" | "linear" | "sigmoid" | "chakra";
+export type LightnessMode = "constant" | "linear" | "sigmoid" | "chakra" | "chakra-unlinear";
