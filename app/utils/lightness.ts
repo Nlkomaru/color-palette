@@ -17,6 +17,8 @@ export function getLightness(
             return sigmoidLightness(length, gain);
         case "chakra":
             return chakraLightness();
+        case "chakra-unlinear":
+            return chakraUnlinearLightness();
     }
 }
 
@@ -70,5 +72,11 @@ function chakraLightness() {
 
     // ChakraUIの標準インデックス値（50, 100, 200, 300, 400, 500, 600, 700, 800, 900, 950）
 
+    return chakraIndices.map((index, i) => ({ index: index, lightness: chakraLightnessValues[i] }));
+}
+
+function chakraUnlinearLightness() {
+    const chakraIndices = [50, 100, 200, 300, 400, 500, 600, 700, 800, 900, 950];
+    const chakraLightnessValues = [0.9841, 0.9563, 0.9167, 0.8651, 0.7971, 0.7148, 0.6089, 0.4415, 0.3526, 0.268, 0.2092];
     return chakraIndices.map((index, i) => ({ index: index, lightness: chakraLightnessValues[i] }));
 }
