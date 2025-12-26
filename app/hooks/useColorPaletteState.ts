@@ -3,9 +3,12 @@
 import { useAtom, useSetAtom } from "jotai";
 import {
     addColorPaletteAtom,
+    chromaAtom,
     colorsAtom,
     gainAtom,
     lengthAtom,
+    maxAtom,
+    minAtom,
     modeAtom,
     removeColorPaletteAtom,
     updateColorIdAtom,
@@ -17,6 +20,9 @@ export function useColorPaletteState() {
     const [length, setLength] = useAtom(lengthAtom);
     const [mode, setMode] = useAtom(modeAtom);
     const [gain, setGain] = useAtom(gainAtom);
+    const [max, setMax] = useAtom(maxAtom);
+    const [min, setMin] = useAtom(minAtom);
+    const [chroma, setChroma] = useAtom(chromaAtom);
 
     const addColorPalette = useSetAtom(addColorPaletteAtom);
     const removeColorPalette = useSetAtom(removeColorPaletteAtom);
@@ -31,6 +37,12 @@ export function useColorPaletteState() {
         setMode,
         gain,
         setGain,
+        max,
+        setMax,
+        min,
+        setMin,
+        chroma,
+        setChroma,
         addColorPalette,
         removeColorPalette,
         updateColorId,

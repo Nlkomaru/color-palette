@@ -20,7 +20,7 @@ export function ColorDisplay({ colorValue, colorId, onChangeColor, onChangeId }:
                 justifyContent: "space-between",
             })}
         >
-            <Field.Root>
+            <Field.Root width="15rem">
                 <Field.Label color="black">Color id</Field.Label>
                 <Input placeholder="green" value={colorId} onChange={(e) => onChangeId(e.target.value)} />
             </Field.Root>

@@ -8,16 +8,16 @@ import { useColorPaletteState } from "../hooks/useColorPaletteState";
 import type { Route } from "./+types/home";
 
 export default function Home({ loaderData }: Route.ComponentProps) {
-    const { colors, length, mode, gain } = useColorPaletteState();
+    const { colors, length, mode, gain, max, min, chroma } = useColorPaletteState();
 
     return (
         <VStack gap="4rem" alignItems="flex-start">
             <Setting />
-            <LightnessChart data={getLightness(length, mode, gain)} />
-            <VStack gap="4rem" alignItems="flex-start">
+            <LightnessChart data={getLightness(length, mode, gain, max, min)} />
+            <VStack gap="4rem" alignItems="flex-start" width="100%">
                 {colors.map(({ colorValue: color, colorId: id, uniqueId }) => {
-                    const lightness = getLightness(length, mode, gain);
-                    const displayColors = getColorChannels(color, lightness).map((color, index) =>
+                    const lightness = getLightness(length, mode, gain, max, min);
+                    const displayColors = getColorChannels(color, lightness, chroma).map((color, index) =>
                         getColorInfo(color, lightness[index].index),
                     );
                     return (

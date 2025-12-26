@@ -45,7 +45,11 @@ export function getColorInfo(color: string, index: number): ColorInfo {
     };
 }
 
-export function getColorChannels(color: string, lightness: { index: number; lightness: number }[]): string[] {
+export function getColorChannels(
+    color: string,
+    lightness: { index: number; lightness: number }[],
+    chroma = 1,
+): string[] {
     const parsedColor = parse(color);
     if (!parsedColor) {
         console.warn(`[getColorChannels] Invalid color format: ${color}. Falling back to default.`);
@@ -65,7 +69,9 @@ export function getColorChannels(color: string, lightness: { index: number; ligh
     const colorChannels: string[] = [];
     for (let i = 0; i < lightness.length; i++) {
         const lightnessValue = lightness[i].lightness;
-        const colorChannel = `oklch(${lightnessValue} ${clampedColor.c} ${clampedColor.h ?? 0} / ${clampedColor.alpha ?? 1})`;
+        // chromaを絶対値として使用
+        // 各値を小数点以下3桁に制限
+        const colorChannel = `oklch(${lightnessValue.toFixed(3)} ${chroma.toFixed(3)} ${(clampedColor.h ?? 0).toFixed(3)} / ${(clampedColor.alpha ?? 1).toFixed(3)})`;
         colorChannels.push(colorChannel);
     }
     return colorChannels;

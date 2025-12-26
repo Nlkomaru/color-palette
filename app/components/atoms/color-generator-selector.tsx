@@ -12,7 +12,6 @@ const items = [
     { value: "sigmoid" as LightnessMode, label: "Sigmoid" },
     { value: "chakra" as LightnessMode, label: "Chakra" },
     { value: "chakra-unlinear" as LightnessMode, label: "Chakra Unlinear" },
-    
 ];
 
 export const ColorGeneratorSelector = () => {

@@ -1,20 +1,22 @@
 import type { LightnessMode } from "../types/type";
 
-const MAX_LIGHTNESS = 0.95;
-const MIN_LIGHTNESS = 0.2;
+export const DEFAULT_MAX_LIGHTNESS = 0.95;
+export const DEFAULT_MIN_LIGHTNESS = 0.2;
 
 export function getLightness(
     length: number,
     mode: LightnessMode,
     gain: number,
+    max: number = DEFAULT_MAX_LIGHTNESS,
+    min: number = DEFAULT_MIN_LIGHTNESS,
 ): { index: number; lightness: number }[] {
     switch (mode) {
         case "constant":
             return constantLightness(length);
         case "linear":
-            return linearLightness(length);
+            return linearLightness(length, max, min);
         case "sigmoid":
-            return sigmoidLightness(length, gain);
+            return sigmoidLightness(length, gain, max, min);
         case "chakra":
             return chakraLightness();
         case "chakra-unlinear":
@@ -26,20 +28,25 @@ function constantLightness(length: number) {
     return Array.from({ length }, (_, i) => ({ index: (i + 1) * 100, lightness: 0.5 }));
 }
 
-function linearLightness(length: number) {
-    const step = (MAX_LIGHTNESS - MIN_LIGHTNESS) / (length - 1);
-    // MAX_LIGHTNESSからMIN_LIGHTNESSまで等間隔で減少する配列を生成
-    return Array.from({ length }, (_, i) => ({ index: (i + 1) * 100, lightness: MAX_LIGHTNESS - i * step }));
+function linearLightness(length: number, max: number, min: number) {
+    const step = (max - min) / (length - 1);
+    // maxからminまで等間隔で減少する配列を生成
+    return Array.from({ length }, (_, i) => ({ index: (i + 1) * 100, lightness: max - i * step }));
 }
 
-export const sigmoidLightness = (length: number, gain: number): { index: number; lightness: number }[] => {
+export const sigmoidLightness = (
+    length: number,
+    gain: number,
+    max: number,
+    min: number,
+): { index: number; lightness: number }[] => {
     // シグモイド関数を定義
     const sigmoid = (x: number): number => {
         const k = 10; // x軸の範囲（0〜10）を表すスケーリングファクター
         const adjustedGain = gain * 0.5; // gainを調整してシグモイドの勾配を調整
         const rawSigmoid = 1 / (1 + Math.exp(-adjustedGain * (x - k / 2))); // 0〜1のシグモイド値
-        // 逆向きにするために (1 - rawSigmoid) を使い、MIN_LIGHTNESS〜MAX_LIGHTNESS の範囲にスケーリング
-        return MIN_LIGHTNESS + (MAX_LIGHTNESS - MIN_LIGHTNESS) * (1 - rawSigmoid);
+        // 逆向きにするために (1 - rawSigmoid) を使い、min〜max の範囲にスケーリング
+        return min + (max - min) * (1 - rawSigmoid);
     };
 
     // 指定したステップ数でシグモイドデータを生成
@@ -67,7 +74,7 @@ function chakraLightness() {
     // ChakraUIのlightness値を正しく線形補間で計算
     const chakraLightnessValues = Array.from(
         { length: chakraIndices.length },
-        (_, i) => max - ((max - min) * i) / (chakraIndices.length - 1)
+        (_, i) => max - ((max - min) * i) / (chakraIndices.length - 1),
     );
 
     // ChakraUIの標準インデックス値（50, 100, 200, 300, 400, 500, 600, 700, 800, 900, 950）
@@ -77,6 +84,8 @@ function chakraLightness() {
 
 function chakraUnlinearLightness() {
     const chakraIndices = [50, 100, 200, 300, 400, 500, 600, 700, 800, 900, 950];
-    const chakraLightnessValues = [0.9841, 0.9563, 0.9167, 0.8651, 0.7971, 0.7148, 0.6089, 0.4415, 0.3526, 0.268, 0.2092];
+    const chakraLightnessValues = [
+        0.9841, 0.9563, 0.9167, 0.8651, 0.7971, 0.7148, 0.6089, 0.4415, 0.3526, 0.268, 0.2092,
+    ];
     return chakraIndices.map((index, i) => ({ index: index, lightness: chakraLightnessValues[i] }));
 }

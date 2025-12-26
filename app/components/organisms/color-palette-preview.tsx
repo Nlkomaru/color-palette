@@ -66,7 +66,7 @@ export const ColorPalettePreview = ({
         addColorPalette();
     };
     return (
-        <HStack gap="8" alignItems="flex-start" height="9rem">
+        <HStack gap="8" alignItems="flex-start" height="9rem" width="100%">
             <ColorDisplay
                 colorId={colorId}
                 colorValue={colorValue}
@@ -76,10 +76,14 @@ export const ColorPalettePreview = ({
             <div
                 className={css({
                     display: "flex",
-                    gap: "0.5rem",
-                    flexWrap: "wrap",
-                    height: "100%",
-                    paddingTop: "0.5rem",
+                    overflowX: "auto",
+                    gap: "12px",
+                    paddingRight: "24px",
+                    flexShrink: 1,
+                    maxWidth: "100%",
+                    minHeight: "48px",
+                    whiteSpace: "nowrap",
+                    alignItems: "center",
                 })}
             >
                 {displayColors.map((color, index) => {
