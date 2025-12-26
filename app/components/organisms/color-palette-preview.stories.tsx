@@ -19,7 +19,7 @@ export const Default: Story = {
         colorValue: "#00368E",
         colorId: "0",
         uniqueId: 0,
-        displayColors: getColorChannels("#00368E", getLightness(10, "linear", 1)).map((color, index) => {
+        displayColors: getColorChannels("#00368E", getLightness(16, "linear", 1)).map((color, index) => {
             return getColorInfo(color, index);
         }),
         lightBackgroundColor: "#ffffff",

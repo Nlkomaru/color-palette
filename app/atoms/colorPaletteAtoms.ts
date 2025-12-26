@@ -2,6 +2,7 @@ import { colorsNamed, formatHex } from "culori";
 import { atom } from "jotai";
 import { atomWithLocation } from "jotai-location";
 import type { LightnessMode } from "../types/type";
+import { DEFAULT_MAX_LIGHTNESS, DEFAULT_MIN_LIGHTNESS } from "../utils/lightness";
 
 type ColorPalette = {
     colorValue: string;
@@ -97,6 +98,61 @@ export const gainAtom = atom(
         const location = get(locationAtom);
         const newSearchParams = new URLSearchParams(location.searchParams);
         newSearchParams.set("gain", String(newGain));
+        set(locationAtom, {
+            ...location,
+            searchParams: newSearchParams,
+        });
+    },
+);
+
+// maxのatom（URL同期）
+export const maxAtom = atom(
+    (get) => {
+        const location = get(locationAtom);
+        const maxParam = location.searchParams?.get("max");
+        return maxParam ? Number.parseFloat(maxParam) : DEFAULT_MAX_LIGHTNESS;
+    },
+    (get, set, newMax: number) => {
+        const location = get(locationAtom);
+        const newSearchParams = new URLSearchParams(location.searchParams);
+        newSearchParams.set("max", String(newMax));
+        set(locationAtom, {
+            ...location,
+            searchParams: newSearchParams,
+        });
+    },
+);
+
+// minのatom（URL同期）
+export const minAtom = atom(
+    (get) => {
+        const location = get(locationAtom);
+        const minParam = location.searchParams?.get("min");
+        return minParam ? Number.parseFloat(minParam) : DEFAULT_MIN_LIGHTNESS;
+    },
+    (get, set, newMin: number) => {
+        const location = get(locationAtom);
+        const newSearchParams = new URLSearchParams(location.searchParams);
+        newSearchParams.set("min", String(newMin));
+        set(locationAtom, {
+            ...location,
+            searchParams: newSearchParams,
+        });
+    },
+);
+
+// chromaのatom（URL同期）
+export const chromaAtom = atom(
+    (get) => {
+        const location = get(locationAtom);
+        const chromaParam = location.searchParams?.get("chroma");
+        // デフォルト値を0.12 (一般的な彩度) に設定
+        return chromaParam ? Number.parseFloat(chromaParam) : 0.12;
+    },
+    (get, set, newChroma: number) => {
+        const location = get(locationAtom);
+        const newSearchParams = new URLSearchParams(location.searchParams);
+        newSearchParams.set("chroma", String(newChroma));
         set(locationAtom, {
             ...location,
             searchParams: newSearchParams,

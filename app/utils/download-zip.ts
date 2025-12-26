@@ -2,7 +2,7 @@ import { saveAs } from "file-saver";
 import JSZip from "jszip";
 import type { LightnessMode } from "../types/type";
 import { getColorChannels } from "./color";
-import { getLightness } from "./lightness";
+import { DEFAULT_MAX_LIGHTNESS, DEFAULT_MIN_LIGHTNESS, getLightness } from "./lightness";
 
 /**
  * Generate Panda token files for the current palette and download as ZIP.
@@ -11,12 +11,17 @@ import { getLightness } from "./lightness";
  * @param length   number of shades per palette
  * @param mode     lightness distribution mode (linear / sigmoid / constant)
  * @param gain     gain for sigmoid mode
+ * @param max      max lightness value
+ * @param min      min lightness value
  */
 export async function downloadColorTokensZip(
     palettes: ColorPaletteInput[],
     length: number,
     mode: LightnessMode,
     gain: number,
+    max: number = DEFAULT_MAX_LIGHTNESS,
+    min: number = DEFAULT_MIN_LIGHTNESS,
+    chroma = 1,
 ) {
     const zip = new JSZip();
     const folder = zip.folder("base");
@@ -32,14 +37,14 @@ export async function downloadColorTokensZip(
     const spreadLines: string[] = [];
 
     // Pre-compute common lightness array once
-    const lightnessArr = getLightness(length, mode, gain);
+    const lightnessArr = getLightness(length, mode, gain, max, min);
 
     palettes.forEach(({ colorValue, colorId }, idx) => {
         const id = toIdentifier(colorId, `color${idx}`);
         const filename = `${id}.ts`;
 
         // Generate colour channels for the palette
-        const channels = getColorChannels(colorValue, lightnessArr);
+        const channels = getColorChannels(colorValue, lightnessArr, chroma);
 
         // Build token object lines (100, 200, ...)
         const entries = channels
